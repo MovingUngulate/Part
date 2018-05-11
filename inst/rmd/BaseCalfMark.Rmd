@@ -1,0 +1,65 @@
+
+---
+title: "DEER Project Elk VIT Status Update"
+output:
+  pdf_document:
+    dev: png
+  html_document: null
+  word_document: null
+params:
+  tabby: tabby
+  chks: chks
+---
+\pdfminorversion=5 
+\pdfcompresslevel=9
+\pdfobjcompresslevel=2
+```{r,echo=F,include=FALSE}
+pdf.options(useDingbats = TRUE,compress=T)
+library(knitr)
+library(httpuv)
+library(sp)
+library(rgdal)
+library(jpeg)
+#library(grid)
+#Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:/Program Files/MiKTeX/miktex/bin", sep=.Platform$path.sep))
+# llist<-list.files('E:/Projects/DEER/AUTO/data',pattern='.Rdata',full.names=T)
+# load(llist[1])
+# load(llist[2])
+# load(llist[3])
+# load(llist[4])
+
+tabby<-readRDS(params$tabby)
+#ll<-readRDS('/home/mhayes1/Desktop/DEERPTesting/L12.rds')
+```
+This is an automated updated for the DEER Project. Results reported within this document are running on the following scripts:\vspace{5mm}
+
+\large\textbf {Report Date: `r format(Sys.time(), '%d %B, %Y  %H:%M')`}
+\vspace{10mm}
+
+\large\textbf {Birth Freqs}
+```{r,echo=F,warning=FALSE}
+tabby$Serial<-as.character(tabby$Serial)
+tabby$`Mom Freq`<-as.character(tabby$`Mom Freq`)
+tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
+kd<-readRDS(params$chks)
+tabby$Serial<-as.character(tabby$Serial)
+
+kd[,c(1:5,7)]<-round(kd[,c(1:5,7)],digits=2)
+kd<-kd[,c(6,1:5,7)]
+
+tabby<-merge(tabby,kd,by.x='Serial',by.y='Serial',all.x=T)
+tabby<-tabby[order(tabby$RMean,decreasing = T),]
+
+names(tabby)[9:12]<-c('FPT50','FPT100','FPT150','FPT300')
+tabby<-tabby[,-3]
+
+
+tabby$Easting<-floor(tabby$LatestEasting)
+
+tabby<-tabby[,-4]
+tabby<-tabby[,-4]
+tabby<-tabby[,-4]
+tabby<-tabby[,-10]
+kable(tabby,format='markdown',row.names=F,align='c',padding=0,caption='Birth Data')
+
+```

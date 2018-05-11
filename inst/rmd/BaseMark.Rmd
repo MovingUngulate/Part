@@ -1,0 +1,98 @@
+
+---
+title: "DEER Project DEER VIT Status Update"
+output:
+  pdf_document:
+    dev: png
+  html_document: null
+  word_document: null
+params:
+  tabby: tabby
+---
+\pdfminorversion=5 
+\pdfcompresslevel=9
+\pdfobjcompresslevel=2
+```{r,echo=F,include=FALSE}
+pdf.options(useDingbats = TRUE,compress=T)
+library(knitr)
+library(httpuv)
+library(sp)
+library(rgdal)
+library(jpeg)
+#library(grid)
+#Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:/Program Files/MiKTeX/miktex/bin", sep=.Platform$path.sep))
+# llist<-list.files('E:/Projects/DEER/AUTO/data',pattern='.Rdata',full.names=T)
+# load(llist[1])
+# load(llist[2])
+# load(llist[3])
+# load(llist[4])
+
+tabby<-readRDS(params$tabby)
+#ll<-readRDS('/home/mhayes1/Desktop/DEERPTesting/L12.rds')
+```
+This is an automated updated for the DEER Project. Results reported within this document are running on the following scripts:\vspace{5mm}
+
+\large\textbf {Report Date: `r format(Sys.time(), '%d %B, %Y  %H:%M')`}
+\vspace{10mm}
+
+\large\textbf {Birth Freqs}
+```{r,echo=F,warning=FALSE}
+tabby$Serial<-as.character(tabby$Serial)
+tabby$`Mom Freq`<-as.character(tabby$`Mom Freq`)
+tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
+
+tabby$CurrentVitStatus<-ifelse(tabby$CurrentVitStatus=='Birth Not yet triggered','BNYT',
+                     ifelse(tabby$CurrentVitStatus=='Birth-triggered by light and temperature', 'B_Sensor',
+                                           ifelse(tabby$CurrentVitStatus=='Birth-triggered by temperature','B_Sensor',
+                                                  ifelse(tabby$CurrentVitStatus=='Birth-triggered by light','Birth_Sensor',ifelse(tabby$CurrentVitStatus=='Birth-triggered by lack of comm','B_Comm',
+                                                                                                                                  ifelse(tabby$CurrentVitStatus == 'No Status','No Status',NA))))))
+
+tabl<-tabby[,c(1,2,3,4,5,6,9,13)]
+colnames(tabl)<-c('Serial','MomFreq','#Fetus','VitFreq','SC','SC3Day','VitStat','Dist')
+tabl<-tabl[order(tabl$MomFreq,decreasing=F),]
+
+
+
+tabl1<-tabl[which(!(tabl$VitStat=='BNYT')),]
+tabl1<-tabl1[which(!(tabl1$VitStat=='No Status')),]
+
+
+kable(tabl1,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Birth Freqs')
+
+```
+
+\vspace{1mm}
+
+\large\textbf {Birth Data}
+```{r,echo=F,warning=FALSE}
+
+tabl3<-tabby[,c(2,7,8,11,12,10,9)]
+colnames(tabl3)<-c('MomFreq','E_East','E_North','M_East','M_North','LastDate','VitStat')
+tabl3<-tabl3[order(tabl3$MomFreq,decreasing=F),]
+
+
+
+tabl3<-tabl3[which(!(tabl3$VitStat=='BNYT')),]
+tabl3<-tabl3[which(!(tabl3$VitStat=='No Status')),]
+
+tabl3<-tabl3[,-7]
+
+tabl3$E_East<-floor(tabl3$E_East)
+tabl3$E_North<-floor(tabl3$E_North)
+tabl3$M_East<-floor(tabl3$M_East)
+tabl3$M_North<-floor(tabl3$M_North)
+
+kable(tabl3,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Birth Data')
+
+```
+
+\vspace{1mm}
+
+\clearpage
+
+\large\textbf {Non-Birth Freqs}
+```{r,echo=F,warning=FALSE}
+tabl2<-tabl[which(tabl$VitStat=='BNYT'|tabl$VitStat=='No Status'),]
+kable(tabl2,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Non Birth Freqs')
+
+```

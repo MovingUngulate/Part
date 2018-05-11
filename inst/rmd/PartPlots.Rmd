@@ -1,0 +1,57 @@
+---
+output:
+  pdf_document:
+    dev: png
+  html_document: null
+  word_document: null
+params:
+  tabby: tabby
+  ll: ll
+  plotlink: plotlink
+  basepath: basepath
+---
+
+\pdfminorversion=5 
+\pdfcompresslevel=9
+\pdfobjcompresslevel=2
+```{r,echo=F,include=FALSE}
+pdf.options(useDingbats = TRUE,compress=T)
+library(knitr)
+library(httpuv)
+library(sp)
+library(rgdal)
+library(jpeg)
+
+#pathloc<-readRDS(params$pathloc)
+
+tabby<-readRDS(params$tabby)
+ll<-readRDS(params$ll)
+```
+
+\begin{figure}[h]
+\centerline{\includegraphics{`r params$plotlink`}}
+\end{figure}
+
+```{r,echo=F,warning=FALSE}
+plotpath<-params$plotlink
+pp<-gsub(params$basepath,'',plotpath)
+pp<-gsub('.png','',pp)
+ll$MatchFreq<-gsub('.','',as.character(ll$`Mom Freq`),fixed=T)
+a<-ll[which(as.numeric(ll$MatchFreq)==as.numeric(pp)),]
+a<-a[,-nrow(a)]
+a<-a[order(a$TelemDate),]
+
+if(!('AID' %in% names(a))){
+colnames(a)<-c('MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
+}
+if('AID' %in% names(a)){
+  colnames(a)<-c('MomFreq','AID','VitFreq','Serial','Date','Easting','Northing')
+}
+
+a$MomFreq<-as.character(a$MomFreq)
+a$VitFreq<-as.character(a$VitFreq)
+
+
+kable(a,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Non Birth Freqs')
+
+```
