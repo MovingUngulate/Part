@@ -47,6 +47,22 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     #dir.create(plotdatapath)
   }
   options(warn=0)
+  
+  
+  llist<-list.files(plotfolder,full.names=T)
+  if(length(llist)>0){
+    for(i in 1:length(llist)){
+      file.remove(llist[i])
+    }
+  }
+  llist<-list.files(pdffolder,full.names=T)
+  if(length(llist)>0){
+    for(i in 1:length(llist)){
+      file.remove(llist[i])
+    }
+  }
+  
+  
   begtime<-Sys.time()
   
   dat<-Part::CombDat(vecpath=vecpath,
