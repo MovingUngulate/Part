@@ -90,7 +90,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   mdat<-mdat[which(mdat$CollarSerialNumber %in% atab$Var1),]
   
-  mdat2<-Part::BGBFun(mdat,xname='Easting',yname='Northing',timename='TelemDate',
+  mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
   vecVit<-Part::vecVitDat(path=vecpath)
