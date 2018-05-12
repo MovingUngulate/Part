@@ -27,7 +27,6 @@ Imports:
     dplyr,
     zoo,
     rmarkdown,
-    httpuv,
     knitr,
     jpeg
 RoxygenNote: 6.0.1

@@ -17,12 +17,8 @@ params:
 ```{r,echo=F,include=FALSE}
 pdf.options(useDingbats = TRUE,compress=T)
 library(knitr)
-library(httpuv)
-library(sp)
-library(rgdal)
 library(jpeg)
 
-#pathloc<-readRDS(params$pathloc)
 
 tabby<-readRDS(params$tabby)
 ll<-readRDS(params$ll)
