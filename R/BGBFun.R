@@ -54,8 +54,8 @@ BGBFun<-function(data,xname,yname,timename,idname,projstring,ncpus,msize=21,wins
   snow::clusterEvalQ(cl, library(move))
   
   # calcate movement statistic, split move stack to consider each trajectory seperately
-  dBGBvar <- lapply(spdata, move::dynBGBvariance, margin=msize, windowSize=winsize,
-                    locErr=21,cluster=cl)
+  dBGBvar <- snow::parLapply(cl=cl,x=spdata, fun=move::dynBGBvariance, margin=msize, windowSize=winsize,
+                             locErr=21)
   snow::stopCluster(cl)
 
   outfun<-dBGBvar
