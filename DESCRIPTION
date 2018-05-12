@@ -24,5 +24,6 @@ Imports:
     parallel, 
     adehabitatLT,
     data.table,
-    dplyr
+    dplyr,
+    zoo
 RoxygenNote: 6.0.1
