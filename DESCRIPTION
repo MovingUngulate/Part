@@ -28,5 +28,6 @@ Imports:
     zoo,
     rmarkdown,
     knitr,
-    jpeg
+    jpeg,
+    tinytex
 RoxygenNote: 6.0.1
