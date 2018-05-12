@@ -46,7 +46,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
 
 
   for(i in 1:length(ATSUsers)){
-    de<-ColDownload(username=ATSUsers[i],password=ATSPass[i],dirdown=tempdir,cType='ATS/IRID')
+    de<-Part::ColDownload(username=ATSUsers[i],password=ATSPass[i],dirdown=tempdir,cType='ATS/IRID')
     #de[[1]]@data$Study<-ATSList[i]
     if(i == 1){
       dat<-de[[1]]

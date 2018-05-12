@@ -51,7 +51,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   begtime<-Sys.time()
   
   
-  dd<-ColDownload(username = ATSUser,password=ATSPass,
+  dd<-Part::ColDownload(username = ATSUser,password=ATSPass,
                   dirdown = tempdir)
   dat<-dd[[1]]
   vi<-dd[[2]]
@@ -77,7 +77,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   dat$X2D.3D<-as.numeric(dat$X2D.3D)
   
   
-  Cdat<-cleanFun(dat,filename=CleanRep,spp='Elk')
+  Cdat<-Part::cleanFun(dat,filename=CleanRep,spp='Elk')
   
   mdat<-as.data.frame(Cdat[[1]])
   mdat$CollarSerialNumber<-as.character(mdat$CollarSerialNumber)
@@ -90,11 +90,11 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   mdat<-mdat[which(mdat$CollarSerialNumber %in% atab$Var1),]
   
-  mdat2<-BGBFun(mdat,xname='Easting',yname='Northing',timename='TelemDate',
+  mdat2<-Part::BGBFun(mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
   
-  viout<-locFun(vidat=vi,locdat=mdat2)
+  viout<-Part::locFun(vidat=vi,locdat=mdat2)
   
   viout<-viout[which(viout$CollarSerialNumber %in% mdat2$CollarSerialNumber),]
   
@@ -115,13 +115,13 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   vi<-vi[which(vi$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
   
   
-  system.time({ vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='elk',plotdataPath=plotdatapath) })
+  Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
+                       spp='elk',plotdataPath=plotdatapath)
   
   
   mlist<-mortvec
   #This function creates a table with updated stats for all animals
-  tabby<-tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='elk')
+  tabby<-Part::tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='elk')
   
   tabby<-tabby[,c(1,4,2,3,6,7,8)]
   
@@ -131,7 +131,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   saveRDS(tabby,file=datastore)
   
   
-  PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
+  Part::PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
   
   fn<-data.frame(datastore=datastore,prettydatastore=PrettyDataStore,
                  pathloc=paste0(tempdir,'path.RDS'),stringsAsFactors=F)
@@ -182,7 +182,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   if(email=='yes'){
     attt<-paste0(tempdir,'CalfMark.pdf')
     
-    sendUpdate(from=from,to=to,
+    Part::sendUpdate(from=from,to=to,
                subject=subject,SP=SP,
                attachpath=attt,
                progpath=progpath,

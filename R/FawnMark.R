@@ -49,10 +49,10 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   options(warn=0)
   begtime<-Sys.time()
   
-  dat<-CombDat(vecpath=vecpath,
+  dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
                tempdir=tempdir)
-  dd<-ColDownload(username = ATSUsers,password=ATSPass,
+  dd<-Part::ColDownload(username = ATSUsers,password=ATSPass,
                   dirdown = tempdir)
   vi<-dd[[2]]
   names(vi)[1]<-'CollarSerialNumber'
@@ -77,7 +77,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   dat$X2D.3D<-as.numeric(dat$X2D.3D)
   
   
-  Cdat<-cleanFun(dat,filename=CleanRep,spp=spp)
+  Cdat<-Part::cleanFun(dat,filename=CleanRep,spp=spp)
   
   mdat<-as.data.frame(Cdat[[1]])
   mdat$CollarSerialNumber<-as.character(mdat$CollarSerialNumber)
@@ -90,12 +90,12 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   mdat<-mdat[which(mdat$CollarSerialNumber %in% atab$Var1),]
   
-  mdat2<-BGBFun(mdat,xname='Easting',yname='Northing',timename='TelemDate',
+  mdat2<-Part::BGBFun(mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
-  vecVit<-vecVitDat(path=vecpath)
+  vecVit<-Part::vecVitDat(path=vecpath)
   vi<-rbind(vi,vecVit)
-  viout<-locFun(vidat=vi,locdat=mdat2)
+  viout<-Part::locFun(vidat=vi,locdat=mdat2)
   
   viout<-viout[which(viout$CollarSerialNumber %in% mdat2$CollarSerialNumber),]
   
@@ -116,13 +116,13 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   vi<-vi[which(vi$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
   
   
-  system.time({ vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='deer',plotdataPath=plotdatapath) })
+  Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
+                       spp='deer',plotdataPath=plotdatapath)
   
   
   mlist<-mortvec
   #This function creates a table with updated stats for all animals
-  tabby<-tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
+  tabby<-Part::tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
   
   tabby<-tabby[,c(1,4,2,3,7,8,9,10,11,12:15)]
   
@@ -133,7 +133,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   saveRDS(tabby,file=datastore)
   
   
-  PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
+  Part::PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
   
   fn<-data.frame(datastore=datastore,prettydatastore=PrettyDataStore,
                  pathloc=paste0(tempdir,'path.RDS'),stringsAsFactors=F)
@@ -183,7 +183,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   if(email=='yes'){
   attt<-paste0(tempdir,'FawnMark.pdf')
   
-  sendUpdate(from=from,to=to,
+  Part::sendUpdate(from=from,to=to,
              subject=subject,SP=SP,
              attachpath=attt,
              progpath=progpath,

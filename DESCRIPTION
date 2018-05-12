@@ -23,5 +23,6 @@ Imports:
     snow, 
     parallel, 
     adehabitatLT,
-    data.table
+    data.table,
+    dplyr
 RoxygenNote: 6.0.1
