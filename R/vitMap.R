@@ -248,9 +248,20 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                12):(nrow(sub))] > tc))
       fc3 <- fc3[which(fc3$Var1 == "TRUE"), ]
       fc3 <- ifelse(nrow(fc3) == 0, 0, fc3$Freq[1])
-      plot(sub$TelemDate, sub$FPT300, type = "l", ylab = "FPT (hours)", 
-           xlab = "Date", main = "FPT 300m radius", cex = 1.25)
-      abline(h = quantile(sub$FPT300, na.rm = T)[4], col = "red")
+      
+      
+      predsub<-hg[hg$CollarSerialNumber==uni[l],]
+      
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+      predsub<-predsub[which(predsub$TelemDate>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
+      #predsub<-predsub[predsub>-]
+      
+      
+      plot(predsub$TelemDate, predsub$Pred0, type = "l", ylab = "Probability", 
+           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1))
+      lines(predsub$TelemDate,predsub$Pred1,col='blue')
+      lines(predsub$TelemDate,predsub$Pred2,col='red')
+      #abline(h = quantile(sub$FPT300, na.rm = T)[4], col = "red")
       tc <- quantile(sub$FPT300, na.rm = T)[4]
       fc4 <- as.data.frame(table(sub$FPT300[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
@@ -265,7 +276,10 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
             cex = 2)
       dev.off()
       cks <- data.frame(MovChk = mc/13, FPT50Chk = fc1/13, 
-                        FPT100Chk = fc2/13, FPT150Chk = fc3/13, FPT300Chk = fc4/13, 
+                        FPT100Chk = fc2/13, FPT150Chk = fc3/13, FPT300Chk = fc4/13,
+                        Pred0Check=predsub$Pred0[nrow(predsub)]/median(predsub$Pred0[(nrow(predsub)-20):(nrow(predsub))-5]),
+                        Pred1Check=predsub$Pred1[nrow(predsub)]/median(predsub$Pred1[(nrow(predsub)-20):(nrow(predsub))-5]),
+                        Pred2Check=predsub$Pred2[nrow(predsub)]/median(predsub$Pred2[(nrow(predsub)-20):(nrow(predsub))-5]),
                         stringsAsFactors = F)
       cks$Serial <- sub$CollarSerialNumber[1]
       allcks <- rbind(allcks, cks)
