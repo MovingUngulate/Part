@@ -4,7 +4,7 @@
 \alias{vitMap}
 \title{Create Plots for Parturition Markdown}
 \usage{
-vitMap(locdat, vidat, vhist, fold, spp, plotdataPath)
+vitMap(locdat, vidat, vhist, fold, spp, plotdataPath, hg = NULL)
 }
 \arguments{
 \item{locdat}{movement data}

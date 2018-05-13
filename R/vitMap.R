@@ -15,7 +15,7 @@
 #' )}
 #'
 
-vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath){
+vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
   if (spp == "deer") {
     locdat$CollarSerialNumber <- as.character(as.numeric(as.character(locdat$CollarSerialNumber)))
     vidat$n <- ifelse(vidat$Event == "Birth Not yet triggered" | vidat$Event == 'not expelled', 

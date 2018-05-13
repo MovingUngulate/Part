@@ -2,28 +2,21 @@
 % Please edit documentation in R/ElkRFPred.R
 \name{ElkRFPred}
 \alias{ElkRFPred}
-\title{Vectronic Collar Data Combine}
+\title{Elk Parturition Prediction with Machine Learning}
 \usage{
 ElkRFPred(jk)
 }
 \arguments{
-\item{vecpath}{Path your Vectronic GPS Plus X Program saves CSV files to}
+\item{jk}{output of BGBFun}
 }
 \value{
-Resulting object is a spatial points data frame of your vectronics data
-downloaded using GPS Plus X as a csv
-\strong{Spatial Data Column Description:}
-\item{CollarSerialNumber}{Collar Serial Number}
-\item{TelemDate}{POSIX Field of collare fixes in the USER'S timezone. NOTE: may need to alter timezone}
-\item{HDOP}{Horizontal Dilution of Precision}
-\item{2D/3D}{Whether fix is a 2d or 3d fix. Values are either 2 or 3}
-\item{Temperature}{Temperature reported by collar}
+data.frame of probability predictions for 0, 1, 2 (pre birth, neonate <48hrs old, neonate>48hrs old)
 }
 \description{
-This function combines the csv files downloaded by vectronic GPS Plus X
+Use Machine Learning to predict parturition in elk
 }
 \examples{
-\donttest{getVec(vecpath='/home/mhayes1/Desktop/Testing/')}
+\donttest{hg<-ElkRFPred(mdat2)}
 
 }
-\keyword{vectronic}
+\keyword{prediction}
