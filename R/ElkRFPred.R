@@ -11,7 +11,6 @@
 #' \item{2D/3D}{Whether fix is a 2d or 3d fix. Values are either 2 or 3}
 #' \item{Temperature}{Temperature reported by collar}
 #' @keywords vectronic
-#' @importFrom randomForest "predict"
 #' @export
 #' @examples
 #' \donttest{getVec(vecpath='/home/mhayes1/Desktop/Testing/')}
@@ -71,9 +70,9 @@ ElkRFPred<-function(jk){
   data("ElkRealTimeRF",package='Part')
   
   
-  akl$Pred0<-as.numeric(predict(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,1])
-  akl$Pred1<-as.numeric(predict(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,2])
-  akl$Pred2<-as.numeric(predict(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,3])
+  akl$Pred0<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,1])
+  akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,2])
+  akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,3])
   
   return(ark)
 }
