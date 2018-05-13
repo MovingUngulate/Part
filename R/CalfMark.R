@@ -130,7 +130,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   
   Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='elk',plotdataPath=plotdatapath,hg)
+                       spp='elk',plotdataPath=plotdatapath,hg=hg)
   
   
   mlist<-mortvec
