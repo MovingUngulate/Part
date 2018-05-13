@@ -15,6 +15,7 @@ License: GPL-3
 LazyData: TRUE
 Imports:
     rvest, 
+    rgeos,
     RCurl, 
     sp,
     httr,
