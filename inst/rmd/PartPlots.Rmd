@@ -47,7 +47,7 @@ if('AID' %in% names(a)){
 a$MomFreq<-as.character(a$MomFreq)
 a$VitFreq<-as.character(a$VitFreq)
 
-a<-a[,-nrow(a)]
+a<-a[,1:7]
 kable(a,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Non Birth Freqs')
 
 ```
