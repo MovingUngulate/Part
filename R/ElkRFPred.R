@@ -70,9 +70,9 @@ ElkRFPred<-function(jk){
   data("ElkRealTimeRF",package='Part')
   
   
-  akl$Pred0<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,1])
-  akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,2])
-  akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,18,19,21:29)],type='prob')[,3])
+  akl$Pred0<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,1])
+  akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,2])
+  akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,3])
   
   return(ark)
 }
