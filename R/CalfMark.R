@@ -107,7 +107,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
-  
+  hg<-Part::ElkRFPred(mdat2)
   viout<-Part::locFun(vidat=vi,locdat=mdat2)
   
   viout<-viout[which(viout$CollarSerialNumber %in% mdat2$CollarSerialNumber),]
@@ -130,7 +130,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   
   Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='elk',plotdataPath=plotdatapath)
+                       spp='elk',plotdataPath=plotdatapath,hg)
   
   
   mlist<-mortvec
