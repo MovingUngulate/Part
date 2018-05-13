@@ -180,7 +180,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     }
     rmarkdown::render(input=system.file("rmd/PartPlots.Rmd", package="Part"), 
                       output_format = 'pdf_document',
-                      output_file=paste0(pdffolder,sb,'.pdf'),
+                      output_file=paste0(pdffolder,paste0('/002',i),'.pdf'),
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
