@@ -74,5 +74,5 @@ ElkRFPred<-function(jk){
   akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,2])
   akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,3])
   
-  return(ark)
+  return(ark[,c(1,2,31:33)])
 }
