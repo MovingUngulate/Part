@@ -61,7 +61,9 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
 
   jk<-rbind(dat,vdat)
 
-
+  st<-SirTrackDat(user='srsdeerproject@gmail.com',pass='wyoming1',
+                        saveas=paste0(tempdir,'STDat.csv'),yourlink='https://data.sirtrack.com/serve/project/1910506001/Wyoming%20Range%20Mule%20Deer.csv?key=$2a$10$e.N/8fXpr.0L6RLgTmacN.')
+  jk<-rbind(jk,st)
   return(jk)
 
 }

@@ -22,20 +22,20 @@
 #' pass=password,saveas='C:/Users/mhayes1/Desktop/SirtrackDat.csv')}
 #'
 SirTrackDat<-function(user,pass,saveas,yourlink){
-  s<-html_session('https://data.sirtrack.com/')
+  s<-rvest::html_session('https://data.sirtrack.com/')
 
   options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
-  curl = getCurlHandle()
+  curl = RCurl::getCurlHandle()
   params <-
     list(
       'loginEmail' = user,
       'loginPassword' = pass
     )
-  html = postForm('https://data.sirtrack.com/', .params = params, curl = curl, style="POST")
+  html = RCurl::postForm('https://data.sirtrack.com/', .params = params, curl = curl, style="POST")
 
   fn<-yourlink
 
-  download.file(fn,saveas)
+  utils::download.file(fn,saveas,quiet=T)
 
   rn<-read.csv(saveas,stringsAsFactors = F)
 
@@ -51,8 +51,8 @@ SirTrackDat<-function(user,pass,saveas,yourlink){
   rn<-rn[complete.cases(rn$Long),]
   rn<-rn[complete.cases(rn$Lat),]
 
-  coordinates(rn)<-~Long+Lat
-  proj4string(rn)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+  sp::coordinates(rn)<-~Long+Lat
+  sp::proj4string(rn)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
   return(rn)
 }
