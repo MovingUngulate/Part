@@ -134,6 +134,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   vi$Date<-paste(vi$Da,vi$Ti, vi$PM,sep=' ')
   dat$X2D.3D<-ifelse(dat$X2D.3D=='val. GPS-3D',6,dat$X2D.3D)
   dat$X2D.3D<-ifelse(dat$X2D.3D=='GPS-3D',6,dat$X2D.3D)
+  dat$X2D.3D<-ifelse(dat$X2D.3D=='GPS-2D',6,dat$X2D.3D)
   dat$X2D.3D<-as.numeric(dat$X2D.3D)
   
   
