@@ -142,14 +142,28 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     tl<-data.frame()
     for(i in 1:length(uni)){
       vsub<-viots[which(viots$CollarSerialNumber==uni[i]),]
+      
+      
+      if(nrow(vsub)<2){
+        vsub<-viots[which(viots$CollarSerialNumber==uni[i]),]
+        #v<-vsub[which(vsub$Date==max(vsub$Date,na.rm=T)),]
+        
+        tl<-rbind(tl,vsub)
+        
+        next
+      }
+      
+      vsub<-viots[which(viots$CollarSerialNumber==uni[i]),]
       v<-vsub[which(vsub$Date==max(vsub$Date,na.rm=T)),]
       
       vsub<-vsub[which(!(vsub$Event==v$Event[1])),]
       
-      if(nrow(vsub)==0){
-        tl<-rbind(tl,v)
-        next
-      }else{
+      if(nrow(vsub)>=2){
+        
+        vsub<-viots[which(viots$CollarSerialNumber==uni[i]),]
+        v<-vsub[which(vsub$Date==max(vsub$Date,na.rm=T)),]
+        
+        vsub<-vsub[which(!(vsub$Event==v$Event[1])),]
         
         vsub<-vsub[which(vsub$Date==max(vsub$Date,na.rm=T)),]
         
@@ -157,7 +171,10 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
         v$Northing<-vsub$Northing
         
         tl<-rbind(tl,v)
+        
+        next
       }
+      
     }
     tl<-tl[,c(1,19:20)]
     tl$CollarSerialNumber<-as.numeric(tl$CollarSerialNumber)
