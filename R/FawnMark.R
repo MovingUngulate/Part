@@ -71,6 +71,50 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   dd<-Part::ColDownload(username = ATSUsers,password=ATSPass,
                   dirdown = tempdir)
   vi<-dd[[2]]
+  dat2<-dat
+  
+  uni<-unique(dat2$CollarSerialNumber)
+  
+  lastpoint<-data.frame()
+  for(i in 1:length(uni)){
+    sub<-dat2[dat2$CollarSerialNumber==uni[i],]
+    sub<-sub[order(sub$TelemDate,decreasing = T),]
+    sub<-as.data.frame(sub)
+    
+    lastpoint<-rbind(lastpoint,sub[1,])
+  }
+  
+  
+  lastpoint$CollarSerialNumber<-as.character(lastpoint$CollarSerialNumber)
+  
+  
+  vhist<-read.csv(lookup,stringsAsFactors = F)
+  vhist<-vhist[complete.cases(vhist$Serial),]
+  vhist<-vhist[which(vhist$Species=='FMD'),]
+  vhist$Serial<-as.character(vhist$Serial)
+  
+  
+  lastpoint<-merge(lastpoint,vhist,by.x='CollarSerialNumber',by.y='Serial',all.x=T)
+  lastpoint<-lastpoint[complete.cases(lastpoint$Frequency),]
+  
+  sp::coordinates(lastpoint)<-~Longitude+Latitude
+  sp::proj4string(lastpoint)<-sp::proj4string(dat)
+  
+  names(lastpoint)[8]<-'name'
+  rgdal::writeOGR(lastpoint["name"], paste(tempdir,'Deer_LatestLocs.kml',sep=''), layer = 'ElkLocs', driver = "KML", 
+                  overwrite = T)
+  
+  #lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
+  lastpoint<-lastpoint[,c(8)]
+  #names(lastpoint)[1]<-'Frequency'
+  rgdal::writeOGR(lastpoint,paste(tempdir,'Deer_LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
+  
+  
+  
+  
+  
+  
+  
   names(vi)[1]<-'CollarSerialNumber'
   names(vi)[2]<-'Date'
   vi$Da<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[[1]]})
@@ -197,7 +241,11 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   system(c)
 
   if(email=='yes'){
-  attt<-paste0(tempdir,'FawnMark.pdf')
+  #attt<-paste0(tempdir,'FawnMark.pdf')
+  
+  attt<-c(paste0(tempdir,'Deer_LatestLocs.kml'),
+          paste0(tempdir,'Deer_LatestLocs.gpx'), 
+          paste0(tempdir,'FawnMark.pdf'))
   
   Part::sendUpdate(from=from,to=to,
              subject=subject,SP=SP,
