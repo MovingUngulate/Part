@@ -78,6 +78,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       if(nrow(subvidat)==0){
         plot.new()
       }
+      
       if(nrow(subvidat)>0){
         plot(subvidat$Date, subvidat$n, type = "b", pch = 20, 
              ylab = "", yaxt = "n", main = "Vit History", 
