@@ -74,12 +74,17 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       fn <- paste(fn, "png", sep = ".")
       png(filename = fn, height = 1400, width = 1500, res = 75)
       par(mfrow = c(3, 2))
-      plot(subvidat$Date, subvidat$n, type = "b", pch = 20, 
-           ylab = "", yaxt = "n", main = "Vit History", 
-           xlab = "Date", ylim = c(0, 2))
-      axis(side = 2, at = c(0, 1, 2), labels = c("NoBirth", 
-                                                 "Comm", "Other"), las = 1, cex.axis = 1.15)
       
+      if(nrow(subvidat)==0){
+        plot.new()
+      }
+      if(nrow(subvidat)>0){
+        plot(subvidat$Date, subvidat$n, type = "b", pch = 20, 
+             ylab = "", yaxt = "n", main = "Vit History", 
+             xlab = "Date", ylim = c(0, 2))
+        axis(side = 2, at = c(0, 1, 2), labels = c("NoBirth", 
+                                                   "Comm", "Other"), las = 1, cex.axis = 1.15)
+      }
       tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01',sep='')
       sub <- sub[which(sub$TelemDate >= as.POSIXct(tim, 
                                                    format = "%Y-%m-%d")), ]
@@ -130,13 +135,13 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       fc3 <- ifelse(nrow(fc3) == 0, 0, fc3$Freq[1])
       
       if('AID' %in% names(vhsub)){
-      mf <- paste(paste("Mom Freq: ", vhsub$Frequency[1], 
-                  sep = " "),paste('AID: ',vhsub$AID[1],sep=''),sep=' ')
-      
+        mf <- paste(paste("Mom Freq: ", vhsub$Frequency[1], 
+                          sep = " "),paste('AID: ',vhsub$AID[1],sep=''),sep=' ')
+        
       }
       if(!('AID' %in% names(vhsub))){
         mf <- paste("Mom Freq: ", vhsub$Frequency[1], 
-                          sep = " ")
+                    sep = " ")
       }
       vf <- paste("Vit Freq:", vhsub$VIT.Freq[1], sep = " ")
       mtext(mf, font = 2, side = 3, line = -2.25, outer = T, 
