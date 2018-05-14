@@ -45,6 +45,8 @@ SirTrackDat<-function(user,pass,saveas,yourlink){
   rn<-rn[,c(2,19,8,9,11,5,6)]
 
   names(rn)<-c('CollarSerialNumber','TelemDate','HDOP','X2D.3D','Temperature','Lat','Long')
+  
+  rn$Temperature<-111
 
   rn$X2D.3D<-as.character(rn$X2D.3D)
 

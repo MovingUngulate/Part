@@ -31,7 +31,7 @@ BGBFun<-function(data,xname,yname,timename,idname,projstring,ncpus,msize=21,wins
   data <- as.data.frame(data)
   ti<-data
   #need complete cases only and ordered by animal/time
-  data<-data[complete.cases(data[,c(1,2,6,7)]),]
+  data<-data[complete.cases(data),]
   data<-data[order(data[,idname],data[,timename]),]
   data$Year<-as.numeric(strftime(data[,timename],format='%Y'))
 
@@ -66,7 +66,7 @@ BGBFun<-function(data,xname,yname,timename,idname,projstring,ncpus,msize=21,wins
     #EF: had to add an X to names(outfun) were not matching
     #ffu<-outfun[[which(paste0("X",names(outfun))==unique(ti$id)[i])]]
     ffu<-outfun[[which(gsub('X','',names(outfun))==unique(ti$CollarSerialNumber)[i])]]
-    #itraj<-itraj[complete.cases(itraj),]
+    itraj<-itraj[complete.cases(itraj),]
     itraj$Year<-as.numeric(strftime(itraj$TelemDate,format='%Y'))
     #itraj<-itraj[which(itraj$Year==year),]
     itraj$paraSd<-ffu@paraSd
