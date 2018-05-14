@@ -31,7 +31,7 @@ BGBFun<-function(data,xname,yname,timename,idname,projstring,ncpus,msize=21,wins
   data <- as.data.frame(data)
   ti<-data
   #need complete cases only and ordered by animal/time
-  data<-data[complete.cases(data),]
+  data<-data[complete.cases(data[,c(1,2,6,7)]),]
   data<-data[order(data[,idname],data[,timename]),]
   data$Year<-as.numeric(strftime(data[,timename],format='%Y'))
 
