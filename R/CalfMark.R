@@ -51,9 +51,9 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   llist<-list.files(plotfolder,full.names=T)
   if(length(llist)>0){
-  for(i in 1:length(llist)){
-    file.remove(llist[i])
-  }
+    for(i in 1:length(llist)){
+      file.remove(llist[i])
+    }
   }
   llist<-list.files(pdffolder,full.names=T)
   if(length(llist)>0){
@@ -66,8 +66,46 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   
   dd<-Part::ColDownload(username = ATSUser,password=ATSPass,
-                  dirdown = tempdir)
+                        dirdown = tempdir)
   dat<-dd[[1]]
+  
+  uni<-unique(dat$CollarSerialNumber)
+  
+  lastpoint<-data.frame()
+  for(i in 1:length(uni)){
+    sub<-dat[dat$CollarSerialNumber==uni[i],]
+    sub<-sub[order(sub$TelemDate,decreasing = T),]
+    sub<-as.data.frame(sub)
+    
+    lastpoint<-rbind(lastpoint,sub[1,])
+  }
+  
+  
+  lastpoint$CollarSerialNumber<-as.character(lastpoint$CollarSerialNumber)
+  
+  
+  vhist<-read.csv(lookup,stringsAsFactors = F)
+  vhist<-vhist[complete.cases(vhist$Serial),]
+  vhist<-vhist[which(vhist$Species=='EK'),]
+  vhist$Serial<-as.character(vhist$Serial)
+  
+  
+  lastpoint<-merge(lastpoint,vhist,by.x='CollarSerialNumber',by.y='Serial',all.x=T)
+  lastpoint<-lastpoint[complete.cases(lastpoint$Frequency),]
+  
+  sp::coordinates(lastpoint)<-~Longitude+Latitude
+  sp::proj4string(lastpoint)<-sp::proj4string(dat)
+  
+  names(lastpoint)[10]<-'name'
+  rgdal::writeOGR(lastpoint["name"], paste(tempdir,'Elk_LatestLocs.kml',sep=''), layer = 'ElkLocs', driver = "KML", 
+                  overwrite = T)
+  
+  #lastpoint<-sp::spTransform(lastpoint,'+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs')
+  lastpoint<-lastpoint[,c(10)]
+  #names(lastpoint)[1]<-'Frequency'
+  rgdal::writeOGR(lastpoint,paste(tempdir,'Elk_LatestLocs.gpx',sep=''),layer='locs',driver='GPX',overwrite_layer=T)
+  
+  
   vi<-dd[[2]]
   names(vi)[1]<-'CollarSerialNumber'
   names(vi)[2]<-'Date'
@@ -105,7 +143,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   mdat<-mdat[which(mdat$CollarSerialNumber %in% atab$Var1),]
   
   mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
-                idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
+                      idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
   hg<-Part::ElkRFPred(mdat2)
   viout<-Part::locFun(vidat=vi,locdat=mdat2)
@@ -130,7 +168,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   
   
   Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='elk',plotdataPath=plotdatapath,hg=hg)
+               spp='elk',plotdataPath=plotdatapath,hg=hg)
   
   
   mlist<-mortvec
@@ -194,9 +232,11 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   system(c)
   
   if(email=='yes'){
-    attt<-paste0(tempdir,'CalfMark.pdf')
+    attt<-c(paste0(tempdir,'Elk_LatestLocs.kml'),
+            paste0(tempdir,'Elk_LatestLocs.gpx'), 
+            paste0(tempdir,'CalfMark.pdf'))
     
-    Part::sendUpdate(from=from,to=to,
+    sendUpdate(from=from,to=to,
                subject=subject,SP=SP,
                attachpath=attt,
                progpath=progpath,
