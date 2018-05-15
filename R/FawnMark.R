@@ -158,10 +158,15 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
-  vecVit<-Part::vecVitDat(path=vecpath)
-  vecVit$Date<-as.POSIXct(vecVit$Date,format='%m/%d/%Y %H:%M:%S %p')
-  vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
-  vi<-rbind(vi,vecVit)
+  if(nchar(vecpath)>0){
+    vecVit<-Part::vecVitDat(path=vecpath)
+    vecVit$Date<-as.POSIXct(vecVit$Date,format='%m/%d/%Y %H:%M:%S %p')
+    vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
+    vi<-rbind(vi,vecVit)
+  }
+  if(nchar(vecpath)==0){
+    vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
+  }
   
   if('AID' %in% names(vhist)){
     ddd<-vi[1,]

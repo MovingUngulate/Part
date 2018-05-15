@@ -66,6 +66,6 @@ sendUpdate<-function(from,to,subject="Test Email from R",
   returnVal <- system('cmd', input=commandCall,intern=T,wait=T)
   
   #this just prints results and tells you if it sent or not and what happened if not. Debug use only.
-  print(returnVal)
+  #print(returnVal)
   
 }
