@@ -39,17 +39,21 @@ a<-a[order(a$TelemDate),]
 
 if(!('AID' %in% names(a))){
 colnames(a)<-c('MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
-
-}
-if('AID' %in% names(a)){
-  colnames(a)<-c('MomFreq','AID','#Fetus','VitFreq','Serial','Date','Easting','Northing')
-
-}
 a<-a[,-nrow(a)]
 a$MomFreq<-as.character(a$MomFreq)
 a$VitFreq<-as.character(a$VitFreq)
 
 a<-a[,1:7]
+}
+if('AID' %in% names(a)){
+  colnames(a)<-c('MomFreq','AID','#Fetus','VitFreq','Serial','Date','Easting','Northing')
+a<-a[,-nrow(a)]
+a$MomFreq<-as.character(a$MomFreq)
+a$VitFreq<-as.character(a$VitFreq)
+
+a<-a[,1:8]
+}
+
 kable(a,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='Non Birth Freqs')
 
 ```
