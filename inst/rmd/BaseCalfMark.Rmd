@@ -1,6 +1,6 @@
 
 ---
-title: "DEER Project Elk VIT Status Update"
+title: "DEER Project Elk Neonate Status Update"
 output:
   pdf_document:
     dev: png
@@ -28,7 +28,7 @@ library(jpeg)
 tabby<-readRDS(params$tabby)
 #ll<-readRDS('/home/mhayes1/Desktop/DEERPTesting/L12.rds')
 ```
-This is an automated updated for the DEER Project. Results reported within this document are running on the following scripts:\vspace{5mm}
+This is an automated updated for the DEER Project.\vspace{5mm}
 
 \large\textbf {Report Date: `r format(Sys.time(), '%d %B, %Y  %H:%M')`}
 \vspace{10mm}
