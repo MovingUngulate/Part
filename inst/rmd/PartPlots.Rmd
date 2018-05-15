@@ -34,16 +34,18 @@ pp<-gsub(params$basepath,'',plotpath)
 pp<-gsub('.png','',pp)
 ll$MatchFreq<-gsub('.','',as.character(ll$`Mom Freq`),fixed=T)
 a<-ll[which(as.numeric(ll$MatchFreq)==as.numeric(pp)),]
-a<-a[,-nrow(a)]
+
 a<-a[order(a$TelemDate),]
 
 if(!('AID' %in% names(a))){
 colnames(a)<-c('MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
+
 }
 if('AID' %in% names(a)){
-  colnames(a)<-c('AID','MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
-}
+  colnames(a)<-c('MomFreq','AID','#Fetus','VitFreq','Serial','Date','Easting','Northing')
 
+}
+a<-a[,-nrow(a)]
 a$MomFreq<-as.character(a$MomFreq)
 a$VitFreq<-as.character(a$VitFreq)
 

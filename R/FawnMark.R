@@ -155,6 +155,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
   vecVit<-Part::vecVitDat(path=vecpath)
+  vecVit$Date<-as.POSIXct(vecVit$Date,format='%m/%d/%Y %H:%M:%S %p')
+  vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
   vi<-rbind(vi,vecVit)
   
   if('AID' %in% names(vhist)){
@@ -216,7 +218,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   #es<-Sys.time()
   
-  vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
+  #vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
   
   names(vi)[12]<-'Event'
   names(vhist)[4]<-'Serial.Number'
