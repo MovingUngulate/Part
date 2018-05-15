@@ -28,7 +28,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
 
   vdat<-data.frame()
   for(i in 1:length(llist)){
-    sub<-read.csv(llist[i],stringsAsFactors = F)
+    sub<-read.csv(llist[i],stringsAsFactors = F,encoding='latin1')
     vdat<-rbind(vdat,sub)
   }
 
