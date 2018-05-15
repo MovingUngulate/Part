@@ -72,8 +72,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
                tempdir=tempdir)
-  dd<-readRDS(paste0(tempdir,'DDown.RDS'))
-  vi<-dd[[2]]
+  vi<-readRDS(paste0(tempdir,'DDown.RDS'))
   dat2<-dat
   
   uni<-unique(dat2$CollarSerialNumber)
