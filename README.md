@@ -24,6 +24,13 @@ remove.packages("Part", lib="~/R/win-library/3.4")
 
 devtools::install_github('MovingUngulate/Part')
 ```
+
+You also need tools to build markdown files and manipulate pdfs. This is done via miktex and PDFtk
+
+sudo apt-get install pdftk
+https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
+
+
 ## General Thoughts
 
 There are a number of ways to use Part. Are you trying to use code to replace Vaginal Implant Transmitters (VITs)? Are you trying to look back at past movement datasets to determine if you can identify parturition. Do you have a new species which we could add to the growing list of base species models?
