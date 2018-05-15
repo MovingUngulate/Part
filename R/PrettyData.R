@@ -31,6 +31,7 @@ PrettyData<-function(dat,idl,filen='C:/Users/mhayes1/Desktop/fawnStuff/L12.rds')
     s<-s[order(s$TelemDate,decreasing=T),]
 
     s<-s[c(1:12),]
+    
 
     if('AID' %in% names(s)){
       s<-s[,c(19,31,20,21,1,2,6,7)]
