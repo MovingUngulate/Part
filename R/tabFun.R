@@ -96,20 +96,26 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     
     #visub$Date<-as.POSIXct(visub$Date,format='%m/%d/%Y')
     
-    visub<-visub[which(visub$Date>=md),]
+    #visub<-visub[which(visub$Date>=md),]
     
     visub$CollarSerialNumber<-as.character(as.numeric(as.character(visub$CollarSerialNumber)))
     uni<-unique(visub$CollarSerialNumber)
     agg<-data.frame()
     for(l in 1:length(uni)){
       s<-visub[which(visub$CollarSerialNumber==uni[l]),]
+      visub<-visub[which(visub$Date>=md),]
       s<-s[complete.cases(s$Event),]
-      if(nrow(s)==0){next}
+      if(nrow(s)==0){
+        jk<-data.frame(CollarSerialNumber=uni[l], VitStatusChanges_10Day=0,stringsAsFactors = F)
+        agg<-rbind(agg,jk)
+        next
+      }
       if(nrow(s)==1){
         count<-0
         jk<-data.frame(CollarSerialNumber=s$CollarSerialNumber[1],
                        VitStatusChanges_10Day=count,stringsAsFactors = F)
         agg<-rbind(agg,jk)
+        next
       }else{
         count<-0
         for(y in 2:nrow(s)){
