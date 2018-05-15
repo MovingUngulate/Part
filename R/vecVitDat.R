@@ -21,7 +21,7 @@ vecVitDat<-function(path){
 
   vdat <- vdat[, c(2, 3, 4, 12)]
   vdat$TelemDate <- as.POSIXct(paste(vdat$UTC.Date, vdat$UTC.Time,
-                                     sep = " "), "%m/%d/%Y %H:%M:%S %p", tz = "UTC")
+                                     sep = " "), "%m/%d/%Y %I:%M:%S %p", tz = "UTC")
   attributes(vdat$TelemDate)$tzone <- "MST"
   vdat <- vdat[, c(1, 5, 4)]
   names(vdat) <- c("CollarSerialNumber", "TelemDate", 'VITStatus')
