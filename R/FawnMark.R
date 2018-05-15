@@ -21,7 +21,7 @@
 FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
                        progpath=NA,username=NA,password=NA,email='no',ST=TRUE,
-                   STUser,STPass){
+                       STUser=NULL,STPass=NULL){
   
   spp<-'FMD'
   options(warn=-1)
@@ -75,6 +75,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
                tempdir=tempdir,ST,STUser,STPass)
+  
   vi<-readRDS(paste0(tempdir,'DDown.RDS'))
   dat2<-dat
   
