@@ -41,6 +41,9 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
   vdat<-vdat[complete.cases(vdat$Long),]
   vdat<-vdat[complete.cases(vdat$Lat),]
 
+  
+  vdat<-vdat[order(vdat$TelemDate),]
+  
   sp::coordinates(vdat)<-~Long+Lat
   sp::proj4string(vdat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 

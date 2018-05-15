@@ -156,6 +156,55 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   vecVit<-Part::vecVitDat(path=vecpath)
   vi<-rbind(vi,vecVit)
+  
+  if('AID' %in% names(vhist)){
+    ddd<-vi[1,]
+    td<-Sys.time()
+    nf=18
+    BattVoltage=7
+    Mortality='No'
+    BreakOff='No'
+    GPSOnTime='1234'
+    SatOnTime='1234'
+    SatErrors='3'
+    GMTOffset='7'
+    LowBatt='No'
+    Event='No Status'
+    Da=strftime(td,'%m/%d/%Y')
+    Ti=strftime(td,'%H:%M:%S')
+    PM=strftime(td,'%p')
+    Month=strftime(td,'%m')
+    Day=strftime(td,'%d')
+    Year=strftime(td,'%Y')
+    
+    vv<-c('63834830','63837290','63920580','63938740')
+    
+    jhg<-data.frame()
+    for(i in 1:length(vv)){
+      #stl<-ddd
+      ddd$CollarSerialNumber<-vv[i]
+      ddd$Date<-td
+      ddd$NumFixes<-nf
+      ddd$BattVoltage<-BattVoltage
+      ddd$Mortality<-Mortality
+      ddd$BreakOff<-BreakOff
+      ddd$GPSOnTime<-GPSOnTime
+      ddd$SatOnTime<-SatOnTime
+      ddd$SatErrors<-SatErrors
+      ddd$GMTOffset<-GMTOffset
+      ddd$LowBatt<-LowBatt
+      ddd$`NeoLink Status`<-Event
+      ddd$Da<-Da
+      ddd$Ti<-Ti
+      ddd$PM<-PM
+      ddd$Month<-Month
+      ddd$Day<-Day
+      ddd$Year<-Year
+      jhg<-rbind(jhg,ddd)
+    }
+    vi<-rbind(vi,jhg)
+    
+  }
   viout<-Part::locFun(vidat=vi,locdat=mdat2)
   
   viout<-viout[which(viout$CollarSerialNumber %in% mdat2$CollarSerialNumber),]
@@ -173,9 +222,10 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   names(vhist)[4]<-'Serial.Number'
   
   #mtime<-as.POSIXct('2017-04-01 00:00:00',format='%Y-%m-%d %H:%M:%S')
-  tim<-paste(strftime(Sys.time(),format='%Y'),'-04-01 00:00:00',sep='')
+  tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01 00:00:00',sep='')
   vi<-vi[which(vi$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
   
+
   
   Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
                        spp='deer',plotdataPath=plotdatapath)
