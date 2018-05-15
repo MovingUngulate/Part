@@ -41,7 +41,7 @@ if(!('AID' %in% names(a))){
 colnames(a)<-c('MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
 }
 if('AID' %in% names(a)){
-  colnames(a)<-c('MomFreq','AID','VitFreq','Serial','Date','Easting','Northing')
+  colnames(a)<-c('AID','MomFreq','#Fetus','VitFreq','Serial','Date','Easting','Northing')
 }
 
 a$MomFreq<-as.character(a$MomFreq)

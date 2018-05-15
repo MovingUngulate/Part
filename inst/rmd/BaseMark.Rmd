@@ -38,8 +38,14 @@ tabby$CurrentVitStatus<-ifelse(tabby$CurrentVitStatus=='Birth Not yet triggered'
                                                   ifelse(tabby$CurrentVitStatus=='Birth-triggered by light','Birth_Sensor',ifelse(tabby$CurrentVitStatus=='Birth-triggered by lack of comm','B_Comm',
                                                                                                                                   ifelse(tabby$CurrentVitStatus == 'No Status','No Status',NA))))))
 
+if(!('AID' %in% names(tabby))){
 tabl<-tabby[,c(1,2,3,4,5,6,9,13)]
 colnames(tabl)<-c('Serial','MomFreq','#Fetus','VitFreq','SC','SC3Day','VitStat','Dist')
+}
+if('AID' %in% names(tabby)){
+tabl<-tabby[,c(14,1,2,3,4,5,6,9,13)]
+colnames(tabl)<-c('AID','Serial','MomFreq','#Fetus','VitFreq','SC','SC3Day','VitStat','Dist')
+}
 tabl<-tabl[order(tabl$MomFreq,decreasing=F),]
 
 
@@ -56,17 +62,30 @@ kable(tabl1,format='markdown',row.names=F,align='c',digits=2,padding=0,caption='
 
 \large\textbf {Birth Data}
 ```{r,echo=F,warning=FALSE}
-
+if(!('AID' %in% names(tabby))){
 tabl3<-tabby[,c(2,7,8,11,12,10,9)]
 colnames(tabl3)<-c('MomFreq','E_East','E_North','M_East','M_North','LastDate','VitStat')
 tabl3<-tabl3[order(tabl3$MomFreq,decreasing=F),]
-
-
-
 tabl3<-tabl3[which(!(tabl3$VitStat=='BNYT')),]
 tabl3<-tabl3[which(!(tabl3$VitStat=='No Status')),]
 
 tabl3<-tabl3[,-7]
+}
+
+if('AID' %in% names(tabby)){
+ tabl3<-tabby[,c(14,2,7,8,11,12,10,9)]
+colnames(tabl3)<-c('AID','MomFreq','E_East','E_North','M_East','M_North','LastDate','VitStat')
+tabl3<-tabl3[order(tabl3$AID,decreasing=F),] 
+tabl3<-tabl3[which(!(tabl3$VitStat=='BNYT')),]
+tabl3<-tabl3[which(!(tabl3$VitStat=='No Status')),]
+
+tabl3<-tabl3[,-8]
+}
+
+
+
+
+
 
 tabl3$E_East<-floor(tabl3$E_East)
 tabl3$E_North<-floor(tabl3$E_North)
