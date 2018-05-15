@@ -27,7 +27,7 @@ getVec<-function(vecpath){
   }
 
   vdat<-vdat[,c(2,3,4,16,17,48,13,14)]
-  vdat$TelemDate<-as.POSIXct(paste(vdat$UTC_Date,vdat$UTC_Time,sep=' '),'%m/%d/%Y %H:%M:%S %p',tz='UTC')
+  vdat$TelemDate<-as.POSIXct(paste(vdat$UTC_Date,vdat$UTC_Time,sep=' '),'%m/%d/%Y %I:%M:%S %p',tz='UTC')
 
   attributes(vdat$TelemDate)$tzone<-'MST'
   vdat<-vdat[,c(1,9,4,5,6,7,8)]
