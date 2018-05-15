@@ -243,6 +243,7 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     sp::proj4string(nt2)<-"+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs +towgs84=0,0,0"
     
     
+    
     #library(rgeos)
     dists<-vector()
     for(p in 1:length(nt1)){
