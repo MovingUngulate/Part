@@ -35,8 +35,8 @@ getVec<-function(vecpath){
   vdat<-vdat[complete.cases(vdat$Long),]
   vdat<-vdat[complete.cases(vdat$Lat),]
 
-  coordinates(vdat)<-~Long+Lat
-  proj4string(vdat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+  sp::coordinates(vdat)<-~Long+Lat
+  sp::proj4string(vdat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
   return(vdat)
 }
