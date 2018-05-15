@@ -51,6 +51,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
   for(i in 1:length(ATSUsers)){
     de<-Part::ColDownload(username=ATSUsers[i],password=ATSPass[i],dirdown=tempdir,cType='ATS/IRID')
     #de[[1]]@data$Study<-ATSList[i]
+    
     if(i == 1){
       dat2<-de[[2]]
       dat<-de[[1]]
@@ -64,7 +65,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
   #dat<-de[[1]]
   dat@data<-dat@data[,c(1,2,3,5,7)]
   
-  saveRDS(dat2,paste0(tempdir,'DDown.RDS'))
+  saveRDS(de[[2]],paste0(tempdir,'DDown.RDS'))
 
   jk<-rbind(dat,vdat)
 
