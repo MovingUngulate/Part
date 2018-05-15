@@ -6,7 +6,7 @@
 \usage{
 FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, from = NA,
   to = NA, subject = NA, SP = NA, progpath = NA, username = NA,
-  password = NA, email = "no", ST = TRUE)
+  password = NA, email = "no", ST = TRUE, STUser, STPass)
 }
 \arguments{
 \item{vecpath}{path to vectronic data folder}
@@ -22,6 +22,10 @@ FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, from = NA,
 \item{lookup}{path to lookup table}
 
 \item{ST}{do you have SirTrack data? TRUE/FALSE}
+
+\item{STUser}{SirTrack Username}
+
+\item{STPass}{SirTrack Password}
 
 \item{spp}{Species of animal}
 }

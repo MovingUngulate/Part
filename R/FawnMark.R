@@ -9,6 +9,8 @@
 #' @param ncpu number of CPU cores for multithreaded work
 #' @param lookup path to lookup table
 #' @param ST do you have SirTrack data? TRUE/FALSE
+#' @param STUser SirTrack Username
+#' @param STPass SirTrack Password
 #' @return Creates all data needed for fawnmark
 #' @keywords fawnmark, prep
 #' @export
@@ -18,7 +20,8 @@
 
 FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
-                       progpath=NA,username=NA,password=NA,email='no',ST=TRUE){
+                       progpath=NA,username=NA,password=NA,email='no',ST=TRUE,
+                   STUser,STPass){
   
   spp<-'FMD'
   options(warn=-1)
@@ -71,7 +74,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
-               tempdir=tempdir,ST)
+               tempdir=tempdir,ST,STUser,STPass)
   vi<-readRDS(paste0(tempdir,'DDown.RDS'))
   dat2<-dat
   

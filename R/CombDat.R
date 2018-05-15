@@ -4,6 +4,9 @@
 #' @param vecpath Path your Vectronic GPS Plus X Program saves CSV files to
 #' @param ATSUsers a character vector of all ATS Iridium login Usernames
 #' @param ATSPass a character vector of all ATS Iridium login passwords
+#' @param ST do you have sirtrack data TRUE/FALSE
+#' @param STUser SirTrack Username
+#' @param STPass SirTrack Password
 #' @param tempdir a temporary directory to store files in when downloading from ATS site
 #' @return Resulting object is a spatial points data frame of your ATS and vectronics data
 #' downloaded using GPS Plus X as a csv
@@ -21,7 +24,7 @@
 #' ATSPass = c('pass1','pass2'),
 #' tempdir='C:/Users/mhayes1/Desktop/temp')}
 #'
-CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir,ST=TRUE){
+CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir,ST=TRUE,STUser=NULL,STPass=NULL){
 
   if(nchar(vecpath)>0){
   llist<-list.files(vecpath,
@@ -76,7 +79,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir,ST=TRUE){
   }
 
   if(ST == TRUE){
-  st<-SirTrackDat(user='srsdeerproject@gmail.com',pass='wyoming1',
+  st<-SirTrackDat(user=STUser,pass=STPass,
                         saveas=paste0(tempdir,'STDat.csv'),yourlink='https://data.sirtrack.com/serve/project/1910506001/Wyoming%20Range%20Mule%20Deer.csv?key=$2a$10$e.N/8fXpr.0L6RLgTmacN.')
 
   

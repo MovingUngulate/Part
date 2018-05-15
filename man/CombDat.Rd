@@ -4,7 +4,8 @@
 \alias{CombDat}
 \title{Combine ATS and Vectronic Data}
 \usage{
-CombDat(vecpath, ATSUsers, ATSPass, tempdir, ST = TRUE)
+CombDat(vecpath, ATSUsers, ATSPass, tempdir, ST = TRUE, STUser = NULL,
+  STPass = NULL)
 }
 \arguments{
 \item{vecpath}{Path your Vectronic GPS Plus X Program saves CSV files to}
@@ -14,6 +15,12 @@ CombDat(vecpath, ATSUsers, ATSPass, tempdir, ST = TRUE)
 \item{ATSPass}{a character vector of all ATS Iridium login passwords}
 
 \item{tempdir}{a temporary directory to store files in when downloading from ATS site}
+
+\item{ST}{do you have sirtrack data TRUE/FALSE}
+
+\item{STUser}{SirTrack Username}
+
+\item{STPass}{SirTrack Password}
 }
 \value{
 Resulting object is a spatial points data frame of your ATS and vectronics data
