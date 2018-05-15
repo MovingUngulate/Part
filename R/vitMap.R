@@ -70,6 +70,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       sub$MR <- sub$dist/sub$dt
       fn <- vhsub$Frequency[1]
       fn <- gsub(".", "", fn, fixed = T)
+      if(nchar(fn)<6){
+        fn<-paste0(fn,paste0(rep('0',6-nchar(fn)),collapse=''))
+      }
       fn <- paste(fold, fn, sep = "/")
       fn <- paste(fn, "png", sep = ".")
       png(filename = fn, height = 1400, width = 1500, res = 75)
@@ -206,6 +209,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       sub$MR <- sub$dist/sub$dt
       fn <- vhsub$Frequency[1]
       fn <- gsub(".", "", fn, fixed = T)
+      if(nchar(fn)<6){
+        fn<-paste0(fn,paste0(rep('0',6-nchar(fn)),collapse=''))
+        }
       fn <- paste(fold, fn, sep = "/")
       fn <- paste(fn, "png", sep = ".")
       png(filename = fn, height = 1400, width = 1500, res = 75)
