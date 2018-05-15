@@ -23,7 +23,7 @@
 sendUpdate<-function(from,to,subject="Test Email from R",
                      SP="smtp.office365.com:587",attachpath,
                      progpath='C:/Users/mhayes1/sendEmail/sendEmail.exe',
-                     username,password){
+                     username,password,systype='Win'){
   
   # Create the required command line parameters for sendEmail to work
   paramsList <- list()
@@ -62,9 +62,13 @@ sendUpdate<-function(from,to,subject="Test Email from R",
   #This would be the path where the sendEmail program is at
   commandCall <- paste(progpath,suffixCall,sep = " ")
   
+  if(systype=='Win'){
   # Issue the command via system() - sending it to CMD
   returnVal <- system('cmd', input=commandCall,intern=T,wait=T)
-  
+  }
+  if(systype=='linux'){
+    returnVal <- system(commandCall,intern=T,wait=T)  
+  }
   #this just prints results and tells you if it sent or not and what happened if not. Debug use only.
   #print(returnVal)
   

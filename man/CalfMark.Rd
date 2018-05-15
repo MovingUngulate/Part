@@ -4,9 +4,9 @@
 \alias{CalfMark}
 \title{Daily Calf Update}
 \usage{
-CalfMark(ATSUser, ATSPass, tempdir, ncpu, lookup, mortvec, from = NA,
-  to = NA, subject = NA, SP = NA, progpath = NA, username = NA,
-  password = NA, email = "no")
+CalfMark(ATSUser, ATSPass, tempdir, ncpu, lookup, from = NA, to = NA,
+  subject = NA, SP = NA, progpath = NA, username = NA, password = NA,
+  email = "no", systype = "Win")
 }
 \arguments{
 \item{ATSPass}{character vector of ATS passwords}
@@ -16,8 +16,6 @@ CalfMark(ATSUser, ATSPass, tempdir, ncpu, lookup, mortvec, from = NA,
 \item{ncpu}{number of CPU cores for multithreaded work}
 
 \item{lookup}{path to lookup table}
-
-\item{mortvec}{character vector of mortalities}
 
 \item{vecpath}{path to vectronic data folder}
 

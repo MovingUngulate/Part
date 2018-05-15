@@ -17,7 +17,7 @@
 
 CalfMark<-function(ATSUser,ATSPass,tempdir,
                    ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
-                   progpath=NA,username=NA,password=NA,email='no'){
+                   progpath=NA,username=NA,password=NA,email='no',systype='Win'){
   
   
   
@@ -239,11 +239,11 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
             paste0(tempdir,'Elk_LatestLocs.gpx'), 
             paste0(tempdir,'CalfMark.pdf'))
     
-    sendUpdate(from=from,to=to,
+    Part::sendUpdate(from=from,to=to,
                subject=subject,SP=SP,
                attachpath=attt,
                progpath=progpath,
-               username=username,password=password)
+               username=username,password=password,systype)
   }
   
   return(paste0('All Done! Took ',round(abs(as.numeric(difftime(endtime,begtime,units='mins'))),digits=1),

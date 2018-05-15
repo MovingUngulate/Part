@@ -6,7 +6,8 @@
 \usage{
 sendUpdate(from, to, subject = "Test Email from R",
   SP = "smtp.office365.com:587", attachpath,
-  progpath = "C:/Users/mhayes1/sendEmail/sendEmail.exe", username, password)
+  progpath = "C:/Users/mhayes1/sendEmail/sendEmail.exe", username, password,
+  systype = "Win")
 }
 \arguments{
 \item{from}{email address sending from}

@@ -6,7 +6,8 @@
 \usage{
 FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, from = NA,
   to = NA, subject = NA, SP = NA, progpath = NA, username = NA,
-  password = NA, email = "no", ST = TRUE, STUser, STPass)
+  password = NA, email = "no", ST = TRUE, STUser = NULL,
+  STPass = NULL, systype = "Win")
 }
 \arguments{
 \item{vecpath}{path to vectronic data folder}

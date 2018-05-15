@@ -21,7 +21,7 @@
 FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
                        progpath=NA,username=NA,password=NA,email='no',ST=TRUE,
-                       STUser=NULL,STPass=NULL){
+                       STUser=NULL,STPass=NULL,systype='Win'){
   
   spp<-'FMD'
   options(warn=-1)
@@ -325,7 +325,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
              subject=subject,SP=SP,
              attachpath=attt,
              progpath=progpath,
-             username=username,password=password)
+             username=username,password=password,systype)
   }
   
   return(paste0('All Done! Took ',round(abs(as.numeric(difftime(endtime,begtime,units='mins'))),digits=1),
