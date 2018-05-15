@@ -31,14 +31,16 @@ cleanFun<-function (data, fixstat = "X2D.3D", hdopC = "HDOP", cval = 3,
 {
   if (type == "irid") {
     rawDat <- data
+    rawDat<-rawDat[rawDat@coords[,1]<(-50),]
+    data<-rawDat
     id <- as.data.frame(sp::spTransform(data, "+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"))
     colnames(id)[(ncol(id)-1):ncol(id)] <- c("Easting", "Northing")
     id$chk<-paste(id$CollarSerialNumber,id$TelemDate,sep='_')
     id<-id[!duplicated(id$chk),]
     id<-id[,-(ncol(id))]
-    t <- trajfun(id, "TelemDate", "Easting", "Northing",
+    t <- Part::trajfun(id, "TelemDate", "Easting", "Northing",
                  "CollarSerialNumber")
-    id <- bindfun(t, id, spp = spp)
+    id <- Part::bindfun(t, id, spp = spp)
     stepquants <- as.numeric(quantile(id$dist, na.rm = T,
                                       seq(0, 1, 0.01))[100])
     id <- id[which(id[, "dist"] <= stepquants), ]
@@ -68,11 +70,13 @@ cleanFun<-function (data, fixstat = "X2D.3D", hdopC = "HDOP", cval = 3,
   }
   else {
     rawDat <- data
+    rawDat<-rawDat[rawDat@coords[,1]<(-50),]
+    data<-rawDat
     id <- as.data.frame(sp::spTransform(data, "+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"))
     colnames(id)[6:7] <- c("Easting", "Northing")
-    t <- trajfun(id, "TelemDate", "Easting", "Northing",
+    t <- Part::trajfun(id, "TelemDate", "Easting", "Northing",
                  "CollarSerialNumber")
-    id <- bindfun(t, id, spp = spp)
+    id <- Part::bindfun(t, id, spp = spp)
     stepquants <- as.numeric(quantile(id$dist, na.rm = T,
                                       seq(0, 1, 0.01))[100])
     id <- id[which(id[, "dist"] <= stepquants), ]
