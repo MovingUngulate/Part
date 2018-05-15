@@ -32,7 +32,7 @@ ll<-readRDS(params$ll)
 plotpath<-params$plotlink
 pp<-gsub(params$basepath,'',plotpath)
 pp<-gsub('.png','',pp)
-pp<-as.numeric(paste0(substr(pp,1,3),'.',substr(pp,4,6)))
+pp<-as.numeric(gsub('.','',as.character(as.numeric(paste0(substr(pp,1,3),'.',substr(pp,4,6))))))
 ll$MatchFreq<-gsub('.','',as.character(ll$`Mom Freq`),fixed=T)
 a<-ll[which(as.numeric(ll$MatchFreq)==as.numeric(pp)),]
 
