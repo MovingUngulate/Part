@@ -21,8 +21,9 @@
 #' ATSPass = c('pass1','pass2'),
 #' tempdir='C:/Users/mhayes1/Desktop/temp')}
 #'
-CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
+CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir,ST=TRUE){
 
+  if(nchar(vecpath)>0){
   llist<-list.files(vecpath,
                     pattern='GPS_Default Storage.csv',full.names=T)
 
@@ -47,7 +48,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
   sp::coordinates(vdat)<-~Long+Lat
   sp::proj4string(vdat)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
-
+}
   for(i in 1:length(ATSUsers)){
     de<-Part::ColDownload(username=ATSUsers[i],password=ATSPass[i],dirdown=tempdir,cType='ATS/IRID')
     #de[[1]]@data$Study<-ATSList[i]
@@ -67,11 +68,21 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
   
   saveRDS(de[[2]],paste0(tempdir,'DDown.RDS'))
 
+  if(nchar(vecpath)>0){
   jk<-rbind(dat,vdat)
+  }
+  if(nchar(vecpath)==0){
+    jk<-dat
+  }
 
+  if(ST == TRUE){
   st<-SirTrackDat(user='srsdeerproject@gmail.com',pass='wyoming1',
                         saveas=paste0(tempdir,'STDat.csv'),yourlink='https://data.sirtrack.com/serve/project/1910506001/Wyoming%20Range%20Mule%20Deer.csv?key=$2a$10$e.N/8fXpr.0L6RLgTmacN.')
+
+  
   jk<-rbind(jk,st)
+  }
+  
   return(jk)
 
 }

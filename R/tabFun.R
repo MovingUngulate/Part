@@ -27,7 +27,7 @@
 #'
 
 
-tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
+tabFun<-function(vhist,vi,viout,outtra,spp='deer'){
   if(spp=='deer'){
     vi<-vi[which(as.character(as.numeric(vi$CollarSerialNumber)) %in% vhist$Serial.Number),]
     cursas<-vi
@@ -47,7 +47,7 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     ntab$Mortality<-NA
     
     
-    ntab<-ntab[which(!(ntab$Serial.Number %in% mlist)),]
+   # ntab<-ntab[which(!(ntab$Serial.Number %in% mlist)),]
     
     vidat<-vi
     vidat$CollarSerialNumber<-as.character(as.numeric(as.character(vidat$CollarSerialNumber)))
@@ -141,7 +141,7 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     viots<-viout
     
     
-    viots<-viots[which(!(viots$CollarSerialNumber %in% mlist)),]
+    #viots<-viots[which(!(viots$CollarSerialNumber %in% mlist)),]
     viots<-viots[complete.cases(viots$CollarSerialNumber),]
     uni<-unique(viots$CollarSerialNumber)
     
@@ -205,7 +205,7 @@ tabFun<-function(vhist,mlist,vi,viout,outtra,spp='deer'){
     # 
     locs<-outtra
     locs$CollarSerialNumber<-as.character(as.numeric(as.character(locs$CollarSerialNumber)))
-    locs<-locs[which(!(locs$CollarSerialNumber %in% mlist)),]
+    #locs<-locs[which(!(locs$CollarSerialNumber %in% mlist)),]
     
     uni<-unique(locs$CollarSerialNumber)
     

@@ -4,9 +4,9 @@
 \alias{FawnMark}
 \title{Daily Fawn Update}
 \usage{
-FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, mortvec,
-  from = NA, to = NA, subject = NA, SP = NA, progpath = NA,
-  username = NA, password = NA, email = "no")
+FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, from = NA,
+  to = NA, subject = NA, SP = NA, progpath = NA, username = NA,
+  password = NA, email = "no", ST = TRUE)
 }
 \arguments{
 \item{vecpath}{path to vectronic data folder}
@@ -21,7 +21,7 @@ FawnMark(vecpath, ATSUsers, ATSPass, tempdir, ncpu, lookup, mortvec,
 
 \item{lookup}{path to lookup table}
 
-\item{mortvec}{character vector of mortalities}
+\item{ST}{do you have SirTrack data? TRUE/FALSE}
 
 \item{spp}{Species of animal}
 }

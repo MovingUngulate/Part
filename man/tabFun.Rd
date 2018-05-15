@@ -4,7 +4,7 @@
 \alias{tabFun}
 \title{BiVariate Gaussian Bridge Stats}
 \usage{
-tabFun(vhist, mlist, vi, viout, outtra, spp = "deer")
+tabFun(vhist, vi, viout, outtra, spp = "deer")
 }
 \arguments{
 \item{data}{GPS data either as data.frame}

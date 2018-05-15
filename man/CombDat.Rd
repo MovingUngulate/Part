@@ -4,7 +4,7 @@
 \alias{CombDat}
 \title{Combine ATS and Vectronic Data}
 \usage{
-CombDat(vecpath, ATSUsers, ATSPass, tempdir)
+CombDat(vecpath, ATSUsers, ATSPass, tempdir, ST = TRUE)
 }
 \arguments{
 \item{vecpath}{Path your Vectronic GPS Plus X Program saves CSV files to}

@@ -8,7 +8,7 @@
 #' @param spp Species of animal
 #' @param ncpu number of CPU cores for multithreaded work
 #' @param lookup path to lookup table
-#' @param mortvec character vector of mortalities 
+#' @param ST do you have SirTrack data? TRUE/FALSE
 #' @return Creates all data needed for fawnmark
 #' @keywords fawnmark, prep
 #' @export
@@ -17,8 +17,8 @@
 #'
 
 FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
-                       ncpu,lookup,mortvec,from=NA,to=NA,subject=NA,SP=NA,
-                       progpath=NA,username=NA,password=NA,email='no'){
+                       ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
+                       progpath=NA,username=NA,password=NA,email='no',ST=TRUE){
   
   spp<-'FMD'
   options(warn=-1)
@@ -71,7 +71,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
-               tempdir=tempdir)
+               tempdir=tempdir,ST)
   vi<-readRDS(paste0(tempdir,'DDown.RDS'))
   dat2<-dat
   
@@ -237,9 +237,9 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        spp='deer',plotdataPath=plotdatapath)
   
   
-  mlist<-mortvec
+  
   #This function creates a table with updated stats for all animals
-  tabby<-Part::tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
+  tabby<-Part::tabFun(vhist=vhist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
   
   if(!('AID' %in% names(tabby))){
     tabby<-tabby[,c(1,4,2,3,7,8,9,10,11,12:15)]
