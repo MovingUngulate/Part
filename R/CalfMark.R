@@ -8,7 +8,6 @@
 #' @param spp Species of animal
 #' @param ncpu number of CPU cores for multithreaded work
 #' @param lookup path to lookup table
-#' @param mortvec character vector of mortalities 
 #' @return Creates all data needed for fawnmark
 #' @keywords fawnmark, prep
 #' @export
@@ -17,7 +16,7 @@
 #'
 
 CalfMark<-function(ATSUser,ATSPass,tempdir,
-                   ncpu,lookup,mortvec,from=NA,to=NA,subject=NA,SP=NA,
+                   ncpu,lookup,from=NA,to=NA,subject=NA,SP=NA,
                    progpath=NA,username=NA,password=NA,email='no'){
   
   
@@ -175,9 +174,9 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
                spp='elk',plotdataPath=plotdatapath,hg=hg)
   
   
-  mlist<-mortvec
+  
   #This function creates a table with updated stats for all animals
-  tabby<-Part::tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='elk')
+  tabby<-Part::tabFun(vhist=vhist,vi=vi,viout=viout,outtra=mdat2,spp='elk')
   
   tabby<-tabby[,c(1,4,2,3,6,7,8)]
   
