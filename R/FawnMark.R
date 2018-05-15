@@ -23,6 +23,10 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   spp<-'FMD'
   options(warn=-1)
   if(dir.exists(tempdir) == TRUE){
+    llist<-list.files(tempdir,all.files=T,full.names=T)
+    for(i in 3:length(llist)){
+      file.remove(llist[i])
+    }
     CleanRep<-paste0(tempdir,'CleaningReport.txt')
     datastore<-paste0(tempdir,'datastore.RDS')
     PrettyDataStore<-paste0(tempdir,'PrettyData.RDS')
