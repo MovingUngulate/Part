@@ -72,8 +72,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   dat<-Part::CombDat(vecpath=vecpath,
                ATSUsers=ATSUsers,ATSPass=ATSPass,
                tempdir=tempdir)
-  dd<-Part::ColDownload(username = ATSUsers,password=ATSPass,
-                  dirdown = tempdir)
+  dd<-readRDS(paste0(tempdir,'DDown.RDS'))
   vi<-dd[[2]]
   dat2<-dat
   

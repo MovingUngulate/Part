@@ -61,6 +61,8 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir){
 
   #dat<-de[[1]]
   dat@data<-dat@data[,c(1,2,3,5,7)]
+  
+  saveRDS(dat,paste0(tempdir,'DDown.RDS'))
 
   jk<-rbind(dat,vdat)
 
