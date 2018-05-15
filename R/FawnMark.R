@@ -292,13 +292,13 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     if(i == 1){
       rmarkdown::render(input=system.file("rmd/BaseMark.Rmd", package="Part"), 
                         output_format = 'pdf_document',
-                        output_file=paste0(pdffolder,'/001','.pdf'),
+                        output_file=paste0(pdffolder,'/1','.pdf'),
                         params=list(tabby=fn[,1]),quiet=T)
       
     }
     rmarkdown::render(input=system.file("rmd/PartPlots.Rmd", package="Part"), 
                       output_format = 'pdf_document',
-                      output_file=paste0(pdffolder,paste0('/002',i),'.pdf'),
+                      output_file=paste0(paste0(pdffolder,'/'),i+1,'.pdf'),
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
