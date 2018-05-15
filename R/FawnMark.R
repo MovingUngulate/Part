@@ -185,12 +185,20 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   #This function creates a table with updated stats for all animals
   tabby<-Part::tabFun(vhist=vhist,mlist=mlist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
   
-  tabby<-tabby[,c(1,4,2,3,7,8,9,10,11,12:15)]
-  
-  colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
-                     'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
-                     'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent')
-  
+  if(!('AID' %in% names(tabby))){
+    tabby<-tabby[,c(1,4,2,3,7,8,9,10,11,12:15)]
+    
+    colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
+                       'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
+                       'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent')
+  }
+  if('AID' %in% names(tabby)){
+    tabby<-tabby[,c(1,4,2,3,8,9,10,11,12,13:16,6)]
+    
+    colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
+                       'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
+                       'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent','AID') 
+  }
   saveRDS(tabby,file=datastore)
   
   
