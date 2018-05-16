@@ -269,6 +269,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
                        'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent','AID') 
   }
+  
+  tabby<-tabby[!duplicated(tabby$Serial),]
   saveRDS(tabby,file=datastore)
   
   
