@@ -1,7 +1,7 @@
 Package: Part
 Type: Package
 Title: Ungulate Parturition Modeling and Predicting
-Version: 0.4
+Version: 0.1.1
 Author: Matthew M. Hayes
 Maintainer: Matthew M. Hayes <mhayes1@uwyo.edu>
 Description: This package leverages ungulate movement data to model and predict 
