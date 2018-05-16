@@ -216,9 +216,18 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
                         params=list(tabby=fn[,1],chks=fn[,5]),quiet=T)
       
     }
+    if((i+1)<10){
+      of<-paste0(paste0(pdffolder,'/100'),i+1,'.pdf')
+    }
+    if((i+1)>=10){
+      of<-paste0(paste0(pdffolder,'/10'),i+1,'.pdf')
+    }
+    if((i+1)>=100){
+      of<-paste0(paste0(pdffolder,'/1'),i+1,'.pdf')
+    }
     rmarkdown::render(input=system.file("rmd/PartPlots.Rmd", package="Part"), 
                       output_format = 'pdf_document',
-                      output_file=paste0(paste0(pdffolder,'/100'),i+1,'.pdf'),
+                      output_file=of,
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
