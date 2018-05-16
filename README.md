@@ -90,4 +90,4 @@ CalfMark(    ATSUser=c('ATSLogin'),
 
 # Example of what parturition looks like using this method (mule deer)
 
-<img src="man/figures/ExamplePart.jpg" align="left" height="1248" width="1113" />
+<img src="man/figures/ExamplePart.jpg" align="left" height="1000" width="900" />
