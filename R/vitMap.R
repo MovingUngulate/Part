@@ -93,7 +93,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       sub <- sub[which(sub$TelemDate >= as.POSIXct(tim, 
                                                    format = "%Y-%m-%d")), ]
       plot(sub$TelemDate, sub$MR, type = "l", ylab = "Movement Rate", 
-           xlab = "Date", main = "Movement Rate", cex = 1.25,ylim=c(0,quantile(sub$MR,probs=seq(0,1,0.1),na.rm=T)[10]))
+           xlab = "Date", main = "Movement Rate", cex = 1.25)
       sub$MRM <- NA
       sub$MRM[12:nrow(sub)] <- zoo::rollmean(sub$MR, k = 12)
       if(nrow(sub)>48){
@@ -221,8 +221,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       sub <- sub[which(sub$TelemDate >= as.POSIXct(tim, 
                                                    format = "%Y-%m-%d")), ]
       plot(sub$TelemDate, sub$MR, type = "l", ylab = "Movement Rate", 
-           xlab = "Date", main = "Movement Rate", cex = 1.25,
-           ylim=c(0,quantile(sub$MR,probs=seq(0,1,0.1),na.rm=T)[10]))
+           xlab = "Date", main = "Movement Rate", cex = 1.25)
       sub$MRM <- NA
       sub$MRM[12:nrow(sub)] <- zoo::rollmean(sub$MR, k = 12)
       mm <- quantile(sub$MR[(nrow(sub) - 48):(nrow(sub))], 
