@@ -147,14 +147,16 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
 
     d2<-d2[-1,c(1:15)]
 
-    }
-    if(FALSE %in% grepl('Latitude',spl)){
+    }else{
       d2<-read.table(d1P,stringsAsFactors = F,sep=',',fill=T,
                      col.names=paste('column',1:16,sep='_'))
       
       d2<-d2[-1,-16]
-
     }
+
+
+
+
     names(d2)<-c('Serial','TelemDate','NumFixes','BattVoltage','Mortality','BreakOff','GPSOnTime','SatOnTime',
                  'SatErrors','GMTOffset','LowBatt','Event1','Event2','Event3','Event4')
 
