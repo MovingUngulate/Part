@@ -79,7 +79,7 @@ CombDat<-function(vecpath,ATSUsers,ATSPass,tempdir,ST=TRUE,STUser=NULL,STPass=NU
   }
 
   if(ST == TRUE){
-  st<-SirTrackDat(user=STUser,pass=STPass,
+  st<-Part::SirTrackDat(user=STUser,pass=STPass,
                         saveas=paste0(tempdir,'STDat.csv'),yourlink='https://data.sirtrack.com/serve/project/1910506001/Wyoming%20Range%20Mule%20Deer.csv?key=$2a$10$e.N/8fXpr.0L6RLgTmacN.')
 
   
