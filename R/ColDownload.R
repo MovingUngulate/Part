@@ -448,7 +448,7 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     #download data
     gf<-rvest::submit_form(jp,f2[[1]],'ctl00$ContentPlaceHolder1$DownloadAll3',httr::write_disk(d1P,overwrite=T))
     #read in data
-    d1<-rvest::read.table(d1P,stringsAsFactors = F,sep=',',header=T)
+    d1<-read.table(d1P,stringsAsFactors = F,sep=',',header=T)
 
     #data munging
     d1$CollarSerialNumber<-as.character(d1$CollarSerialNumber)
