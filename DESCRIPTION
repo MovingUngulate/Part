@@ -10,7 +10,7 @@ Description: This package leverages ungulate movement data to model and predict
     only on ungulate (mule deer, elk and moose). As a courtesy, several functions
     that automate downloading data from common ungulate collar company websites
     are also included.
-BugReports: https://github.com/mhayes1/UPart/issues
+BugReports: https://github.com/MovingUngulate/Part
 License: GPL-3
 LazyData: TRUE
 Imports:
