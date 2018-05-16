@@ -172,6 +172,11 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
   }
   
+  vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'not expelled','Birth Not yet triggered',vi$`NeoLink Status`)
+  vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'expelled','Birth-triggered by light and temperature',vi$`NeoLink Status`)
+  vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'Unknown/No Sync','No Status',vi$`NeoLink Status`)
+  vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'Unknown Status Message','No Status',vi$`NeoLink Status`)
+  
   if('AID' %in% names(vhist)){
     ddd<-vi[1,]
     td<-Sys.time()
@@ -292,13 +297,13 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     if(i == 1){
       rmarkdown::render(input=system.file("rmd/BaseMark.Rmd", package="Part"), 
                         output_format = 'pdf_document',
-                        output_file=paste0(pdffolder,'/1','.pdf'),
+                        output_file=paste0(pdffolder,'/1000','.pdf'),
                         params=list(tabby=fn[,1]),quiet=T)
       
     }
     rmarkdown::render(input=system.file("rmd/PartPlots.Rmd", package="Part"), 
                       output_format = 'pdf_document',
-                      output_file=paste0(paste0(pdffolder,'/'),i+1,'.pdf'),
+                      output_file=paste0(paste0(pdffolder,'/100'),i+1,'.pdf'),
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
