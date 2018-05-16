@@ -184,23 +184,10 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
         outp <- "Birth Not yet triggered"
         return(outp)
       }
+
       if (grepl("Birth-triggered by temperature:::", x["All"]) == 
           TRUE) {
         outp <- "Birth triggered by temperature"
-        return(outp)
-      }
-      if (grepl("Birth-triggered by lack of comm:::", x["All"]) == 
-          TRUE) {
-        outp <- "Birth triggered by lack of comm"
-        return(outp)
-      }
-      if (grepl("Fawn0-Comm:::", x["All"]) == TRUE) {
-        outp <- "Fawn0-Comm"
-        return(outp)
-      }
-      if (grepl("Birth-triggered by light and temperature:::", 
-                x["All"]) == TRUE) {
-        outp <- "Birth triggered by light and temperature"
         return(outp)
       }
       if (grepl("Birth-triggered by light:::", x["All"]) == 
@@ -208,22 +195,28 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
         outp <- "Birth triggered by light"
         return(outp)
       }
+      if (grepl("Birth-triggered by light and temperature:::", 
+                x["All"]) == TRUE) {
+        outp <- "Birth triggered by light and temperature"
+        return(outp)
+      }
+      if (grepl("Birth-triggered by lack of comm:::", x["All"]) == 
+          TRUE) {
+        outp <- "Birth triggered by lack of comm"
+        return(outp)
+      }
       if (grepl("Fawn0:Fawn1-Comm:Comm:", x["All"]) == 
           TRUE) {
         outp <- "Fawn0-Comm:Fawn1-Comm"
         return(outp)
       }
+      if (grepl("Fawn0-Comm:::", x["All"]) == TRUE) {
+        outp <- "Fawn0-Comm"
+        return(outp)
+      }
       if (grepl("Fawn0:Fawn1:None-Comm:Absence", x["All"]) == 
           TRUE) {
         outp <- "Fawn0-Comm:Fawn1-Absence"
-        return(outp)
-      }
-      if (grepl(":::", x["All"]) == TRUE) {
-        outp <- "No Status"
-        return(outp)
-      }
-      if (grepl("None:::", x["All"]) == TRUE) {
-        outp <- "No Status"
         return(outp)
       }
       if (grepl("Fawn0-Absence:::", x["All"]) == TRUE) {
@@ -348,8 +341,21 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
         outp <- "No Status"
         return(outp)
       }
+      if (outp == "None:None:None-None:None") {
+        outp <- "Unknown Status Message"
+        return(outp)
+      }
       if (outp == "No") {
         outp <- "Unknown Status Message"
+        return(outp)
+      }
+      if (grepl("None:::", x["All"]) == 
+          TRUE) {
+        outp <- "No Status"
+        return(outp)
+      }
+      if (grepl(":::", x["All"]) == TRUE) {
+        outp <- "No Status"
         return(outp)
       }
       #return(outp)
