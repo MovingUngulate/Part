@@ -243,6 +243,14 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   c<-paste(c,collapse=' ')
   system(c)
   
+  if(systype='linux'){
+    c<-c('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',paste0(tempdir,'FawnMark.pdf'),paste0(tempdir,'FawnMarkCom.pdf'))
+    file.remove(paste0(tempdir,'CalfMark.pdf'))
+    file.rename(paste0(tempdir,'CalfMarkCom.pdf'),paste0(tempdir,'CalfMark.pdf'))
+    
+    
+  }
+  
   if(email=='yes'){
     attt<-c(paste0(tempdir,'Elk_LatestLocs.kml'),
             paste0(tempdir,'Elk_LatestLocs.gpx'), 

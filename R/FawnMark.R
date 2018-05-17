@@ -323,12 +323,20 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   }
   
   endtime<-Sys.time()
-  
+
   c<-list.files(pdffolder,full.names=T)
   c<-c('pdftk',c,'output',paste0(tempdir,'FawnMark.pdf'))
   
   c<-paste(c,collapse=' ')
   system(c)
+
+  if(systype='linux'){
+    c<-c('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',paste0(tempdir,'FawnMark.pdf'),paste0(tempdir,'FawnMarkCom.pdf'))
+    file.remove(paste0(tempdir,'FawnMark.pdf'))
+    file.rename(paste0(tempdir,'FawnMarkCom.pdf'),paste0(tempdir,'FawnMark.pdf'))
+    
+    
+  }
 
   if(email=='yes'){
   #attt<-paste0(tempdir,'FawnMark.pdf')
