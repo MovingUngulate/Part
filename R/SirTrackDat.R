@@ -52,7 +52,11 @@ SirTrackDat<-function(user,pass,saveas,yourlink){
 
   rn<-rn[complete.cases(rn$Long),]
   rn<-rn[complete.cases(rn$Lat),]
-
+  
+  rn$CollarSerialNumber<-ifelse(grepl('DEERP',rn$CollarSerialNumber),gsub('DEERP - ','',rn$CollarSerialNumber),rn$CollarSerialNumber)
+  rn$CollarSerialNumber<-ifelse(grepl('Sheep',rn$CollarSerialNumber),gsub('Sheep','987654',rn$CollarSerialNumber),rn$CollarSerialNumber)
+  
+  
   sp::coordinates(rn)<-~Long+Lat
   sp::proj4string(rn)<-'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
