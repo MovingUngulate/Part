@@ -331,7 +331,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   system(c)
 
   if(systype=='linux'){
-    c<-c(paste('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',paste0(tempdir,'FawnMarkCom.pdf'),paste0(tempdir,'FawnMark.pdf')),sep=' ')
+    c<-c(paste(paste0('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',
+                      paste0(tempdir,'FawnMarkCom.pdf')),paste0(tempdir,'FawnMark.pdf')))
     system(c)
     file.remove(paste0(tempdir,'FawnMark.pdf'))
     file.rename(paste0(tempdir,'FawnMarkCom.pdf'),paste0(tempdir,'FawnMark.pdf'))
