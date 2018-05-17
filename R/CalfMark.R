@@ -244,7 +244,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   system(c)
   
   if(systype=='linux'){
-    c<-c(paste('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',paste0(tempdir,'FawnMark.pdf'),paste0(tempdir,'FawnMarkCom.pdf')),sep=' ')
+    c<-c(paste('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH  -dQUIET -sOutputFile=',paste0(tempdir,'CalfMarkCom.pdf'),paste0(tempdir,'CalfMark.pdf')),sep=' ')
     system(c)
     file.remove(paste0(tempdir,'CalfMark.pdf'))
     file.rename(paste0(tempdir,'CalfMarkCom.pdf'),paste0(tempdir,'CalfMark.pdf'))
