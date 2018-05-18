@@ -346,7 +346,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                      jj$CurrentVitStatus=='Birth triggered by temperature'|jj$CurrentVitStatus=='Birth triggered by light'|
                      jj$CurrentVitStatus=='Birth triggered by lack of comm'))
   
-  sub<-paste0(subject, ' - ',
+  sub<-paste0(subject, ': ',
               sub,
               ' Possible Births')
   
