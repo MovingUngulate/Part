@@ -342,16 +342,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   }
 
   
-  jj<-readRDS(paste0(tempdir,'datastore.RDS'))
-  nr<-nrow(jj)
-  sub<-as.numeric(table(jj$CurrentVitStatus=='expelled'|jj$CurrentVitStatus=='Birth triggered by light and temperature'|
-                     jj$CurrentVitStatus=='Birth triggered by temperature'|jj$CurrentVitStatus=='Birth triggered by light'|
-                     jj$CurrentVitStatus=='Birth triggered by lack of comm')[[2]])
-  
-  sub<-paste0(subject, ': ',
-              sub,
-              ' Possible Births')
-  
+
   if(email=='yes'){
   #attt<-paste0(tempdir,'FawnMark.pdf')
   
@@ -360,7 +351,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
           paste0(tempdir,'FawnMark.pdf'))
   
   Part::sendUpdate(from=from,to=to,
-             subject=sub,SP=SP,
+             subject=subject,SP=SP,
              attachpath=attt,
              progpath=progpath,
              username=username,password=password,systype)
