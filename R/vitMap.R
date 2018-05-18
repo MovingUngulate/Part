@@ -83,6 +83,8 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       }
       
       if(nrow(subvidat)>0){
+        tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01 00:00:00',sep='')
+        subvidat<-subvidat[which(subvidat$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
         plot(subvidat$Date, subvidat$n, type = "b", pch = 20, 
              ylab = "", yaxt = "n", main = "Vit History", 
              xlab = "Date", ylim = c(0, 2))
