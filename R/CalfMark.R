@@ -254,13 +254,17 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
     
   }
   
+  sub<-paste0(subject,' - ',
+              as.numeric(table(readRDS(tempdir,'PlotData_Elk.RDS')$Pred1Check>0.2)[[2]]),
+              ' Possible Births')
+  
   if(email=='yes'){
     attt<-c(paste0(tempdir,'Elk_LatestLocs.kml'),
             paste0(tempdir,'Elk_LatestLocs.gpx'), 
             paste0(tempdir,'CalfMark.pdf'))
     
     Part::sendUpdate(from=from,to=to,
-               subject=subject,SP=SP,
+               subject=sub,SP=SP,
                attachpath=attt,
                progpath=progpath,
                username=username,password=password,systype)
