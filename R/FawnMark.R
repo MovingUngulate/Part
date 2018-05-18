@@ -341,7 +341,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   }
 
   
-  jj<-readRDS(tempdir,'PlotData_Deer.RDS')
+  jj<-readRDS(paste0(tempdir,'PlotData_Deer.RDS'))
   sub<-as.numeric(table(jj$CurrentVitStatus=='expelled'|jj$CurrentVitStatus=='Birth triggered by light and temperature'|
                      jj$CurrentVitStatus=='Birth triggered by temperature'|jj$CurrentVitStatus=='Birth triggered by light'|
                      jj$CurrentVitStatus=='Birth triggered by lack of comm'))[[2]]

@@ -255,7 +255,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   }
   
   sub<-paste0(subject,' - ',
-              as.numeric(table(readRDS(tempdir,'PlotData_Elk.RDS')$Pred1Check>0.2)[[2]]),
+              as.numeric(table(readRDS(paste0(tempdir,'PlotData_Elk.RDS'))$Pred1Check>0.2)[[2]]),
               ' Possible Births')
   
   if(email=='yes'){
