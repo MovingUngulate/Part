@@ -345,7 +345,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   nr<-nrow(jj)
   sub<-nr-as.numeric(table(jj$CurrentVitStatus=='expelled'|jj$CurrentVitStatus=='Birth triggered by light and temperature'|
                      jj$CurrentVitStatus=='Birth triggered by temperature'|jj$CurrentVitStatus=='Birth triggered by light'|
-                     jj$CurrentVitStatus=='Birth triggered by lack of comm'))
+                     jj$CurrentVitStatus=='Birth triggered by lack of comm')[[2]])
   
   sub<-paste0(subject, ': ',
               sub,
