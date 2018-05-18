@@ -53,7 +53,7 @@ SirTrackDat<-function(user,pass,saveas,yourlink){
   rn<-rn[complete.cases(rn$Long),]
   rn<-rn[complete.cases(rn$Lat),]
   
-  rn$CollarSerialNumber<-ifelse(grepl('DEER-',rn$CollarSerialNumber),gsub('DEERP-','',rn$CollarSerialNumber),rn$CollarSerialNumber)
+  rn$CollarSerialNumber<-ifelse(grepl('DEERP-',rn$CollarSerialNumber),gsub('DEERP-','',rn$CollarSerialNumber),rn$CollarSerialNumber)
   rn$CollarSerialNumber<-ifelse(grepl('Sheep-',rn$CollarSerialNumber),gsub('Sheep-','',rn$CollarSerialNumber),rn$CollarSerialNumber)
   
   
