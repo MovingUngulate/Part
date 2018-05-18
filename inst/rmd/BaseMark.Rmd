@@ -33,9 +33,9 @@ tabby$`Mom Freq`<-as.character(tabby$`Mom Freq`)
 tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
 
 tabby$CurrentVitStatus<-ifelse(tabby$CurrentVitStatus=='Birth Not yet triggered','BNYT',
-                     ifelse(tabby$CurrentVitStatus=='Birth-triggered by light and temperature', 'B_Sensor',
-                                           ifelse(tabby$CurrentVitStatus=='Birth-triggered by temperature','B_Sensor',
-                                                  ifelse(tabby$CurrentVitStatus=='Birth-triggered by light','Birth_Sensor',ifelse(tabby$CurrentVitStatus=='Birth-triggered by lack of comm','B_Comm',
+                     ifelse(tabby$CurrentVitStatus=='Birth triggered by light and temperature', 'B_Sensor',
+                                           ifelse(tabby$CurrentVitStatus=='Birth triggered by temperature','B_Sensor',
+                                                  ifelse(tabby$CurrentVitStatus=='Birth triggered by light','Birth_Sensor',ifelse(tabby$CurrentVitStatus=='Birth triggered by lack of comm','B_Comm',
                                                                                                                                   ifelse(tabby$CurrentVitStatus == 'No Status','No Status',tabby$CurrentVitStatus))))))
 
 if(!('AID' %in% names(tabby))){
