@@ -176,6 +176,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'expelled','Birth-triggered by light and temperature',vi$`NeoLink Status`)
   vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'Unknown/No Sync','No Status',vi$`NeoLink Status`)
   vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == 'Unknown Status Message','No Status',vi$`NeoLink Status`)
+  vi$`NeoLink Status`<-ifelse(vi$`NeoLink Status` == '','No Status',vi$`NeoLink Status`)
   
   if('AID' %in% names(vhist)){
     ddd<-vi[1,]
