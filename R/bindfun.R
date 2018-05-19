@@ -24,7 +24,7 @@ bindfun<-function(ti,data,spp='Elk'){
     itraj<-itraj[,c(1:5,8,9,13:19)]
     }
     if(spp=='FMD'){
-      itraj<-itraj[,c(1:5,11:17)]  
+      itraj<-itraj[,c(1:5,8,9,11:17)]  
     }
     itraj$Species<-spp
     # }else{
