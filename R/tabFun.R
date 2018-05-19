@@ -194,10 +194,10 @@ tabFun<-function(vhist,vi,viout,outtra,spp='deer'){
     ntab<-merge(ntab,cs,by.x='Serial.Number',by.y='CollarSerialNumber',all.x=T)
     
     if(!('AID' %in% names(ntab))){
-      colnames(ntab)[9:11]<-c('EventEasting','EventNorthing','CurrentStatus')
+      colnames(ntab)[10:12]<-c('EventEasting','EventNorthing','CurrentStatus')
     }
     if('AID' %in% names(ntab)){
-      colnames(ntab)[10:12]<-c('EventEasting','EventNorthing','CurrentStatus')
+      colnames(ntab)[11:13]<-c('EventEasting','EventNorthing','CurrentStatus')
     }
     # }else{
     #   colnames(ntab)[8:10]<-c('CurrentStatus','EventEasting','EventNorthing')
@@ -223,10 +223,10 @@ tabFun<-function(vhist,vi,viout,outtra,spp='deer'){
     
     # if(spp=='deer'){
     if(!('AID' %in% names(ntab))){
-      colnames(ntab)[12:14]<-c('LatestTelemDate','LatestEasting','LatestNorthing')
+      colnames(ntab)[13:15]<-c('LatestTelemDate','LatestEasting','LatestNorthing')
     }
     if('AID' %in% names(ntab)){
-      colnames(ntab)[13:15]<-c('LatestTelemDate','LatestEasting','LatestNorthing')
+      colnames(ntab)[14:16]<-c('LatestTelemDate','LatestEasting','LatestNorthing')
     }
     # }else{
     #   colnames(ntab)[11:13]<-c('LatestTelemDate','LatestEasting','LatestNorthing')
