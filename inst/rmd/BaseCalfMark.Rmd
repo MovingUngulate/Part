@@ -48,7 +48,7 @@ tabby<-merge(tabby,kd,by.x='Serial',by.y='Serial',all.x=T)
 tabby<-tabby[order(tabby$Pred1Check,decreasing = T),]
 
 #names(tabby)[9:12]<-c('FPT50','FPT100','FPT150','FPT300')
-tabby<-tabby[,c(1,2,4,8:10)]
+tabby<-tabby[,c(1,2,4,(length(names)-3):length(names))]
 
 
 #tabby$Easting<-floor(tabby$LatestEasting)

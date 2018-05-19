@@ -170,16 +170,14 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
             cex = 2)
       dev.off()
 
-      cks <- data.frame(MovChk = mc/13, FPT50Chk = fc1/13, 
-                        FPT100Chk = fc2/13, FPT150Chk = fc3/13,
-                        Pred0Check=predsub$Pred0[nrow(predsub)],
+      cks <- data.frame(Pred0Check=predsub$Pred0[nrow(predsub)],
                         Pred1Check=predsub$Pred1[nrow(predsub)],
                         Pred2Check=predsub$Pred2[nrow(predsub)],
                         stringsAsFactors = F)
       cks$Serial <- sub$CollarSerialNumber[1]
       allcks <- rbind(allcks, cks)
     }
-    allcks$RMean <- rowMeans(allcks[, 1:4])
+    #allcks$RMean <- rowMeans(allcks[, 1:4])
     
     ppp<-paste0(plotdataPath,'_Deer.RDS')
     saveRDS(allcks, ppp)
@@ -308,16 +306,14 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       mtext(vf, font = 2, side = 3, line = -50, outer = T, 
             cex = 2)
       dev.off()
-      cks <- data.frame(MovChk = mc/13, FPT50Chk = fc1/13, 
-                        FPT100Chk = fc2/13, FPT150Chk = fc3/13, FPT300Chk = fc4/13,
-                        Pred0Check=predsub$Pred0[nrow(predsub)],
+      cks <- data.frame(Pred0Check=predsub$Pred0[nrow(predsub)],
                         Pred1Check=predsub$Pred1[nrow(predsub)],
                         Pred2Check=predsub$Pred2[nrow(predsub)],
                         stringsAsFactors = F)
       cks$Serial <- sub$CollarSerialNumber[1]
       allcks <- rbind(allcks, cks)
     }
-    allcks$RMean <- rowMeans(allcks[, 1:5])
+    #allcks$RMean <- rowMeans(allcks[, 1:5])
     
     ppp<-paste0(plotdataPath,'_Elk.RDS')
     saveRDS(allcks, ppp)
