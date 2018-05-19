@@ -9,6 +9,7 @@
 #' @export
 
 bindfun<-function(ti,data,spp='Elk'){
+
   outtra<-data.frame()
   for(i in 1:length(unique(ti$id))){
     itraj<-ti[which(ti$id==unique(ti$id)[i]),]
@@ -19,7 +20,12 @@ bindfun<-function(ti,data,spp='Elk'){
     #     itraj$orthSd<-ffu@orthSd
     itraj<-cbind(ffu,itraj)
     #if('Activity' %in% names(ffu)){
+    if(spp=='Elk'){
     itraj<-itraj[,c(1:5,8,9,13:19)]
+    }
+    if(spp=='FMD'){
+      itraj<-itraj[,c(1:5,11:17)]  
+    }
     itraj$Species<-spp
     # }else{
     #   itraj<-itraj[,c(1:7,11:17)]
@@ -27,5 +33,7 @@ bindfun<-function(ti,data,spp='Elk'){
     # }
     outtra<-rbind(outtra,itraj)
   }
+ 
+  
   return(outtra)
 }

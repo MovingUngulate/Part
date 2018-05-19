@@ -23,6 +23,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                 1, 2))
     vidat$CollarSerialNumber <- as.character(as.numeric(vidat$CollarSerialNumber))
     vhist$Serial.Number <- as.character(as.numeric(vhist$Serial.Number))
+    if(TRUE %in% (nchar(vhist$ActBD)>0)){
+    vhist$ActBD<-as.POSIXct(paste0(vhist$ActBD,' 5'),'%m/%d/%Y %H',tz='MST')
+    }
     uni <- unique(locdat$CollarSerialNumber)
     sub <- locdat
     sub <- sub[with(sub, order(sub[, "TelemDate"])), ]
@@ -90,12 +93,14 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
              xlab = "Date", ylim = c(0, 2))
         axis(side = 2, at = c(0, 1, 2), labels = c("NoBirth", 
                                                    "Comm", "Other"), las = 1, cex.axis = 1.15)
-      }
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
+        }
       tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01',sep='')
       sub <- sub[which(sub$TelemDate >= as.POSIXct(tim, 
                                                    format = "%Y-%m-%d")), ]
       plot(sub$TelemDate, sub$MR, type = "l", ylab = "Movement Rate", 
            xlab = "Date", main = "Movement Rate", cex = 1.25)
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       sub$MRM <- NA
       sub$MRM[12:nrow(sub)] <- zoo::rollmean(sub$MR, k = 12)
       if(nrow(sub)>48){
@@ -115,9 +120,11 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                            50), ylab = "Metric", xlab = "Date", main = "dBGB Metrics", 
            cex = 1.25)
       lines(sub$TelemDate, sub$paraSd, col = "blue")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       plot(sub$TelemDate, sub$FPT50, type = "l", ylab = "FPT (hours)", 
            xlab = "Date", main = "FPT 50m radius", cex = 1.25)
       abline(h = quantile(sub$FPT50, na.rm = T)[4], col = "red")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       tc <- quantile(sub$FPT50, na.rm = T)[4]
       fc1 <- as.data.frame(table(sub$FPT50[(nrow(sub) - 
                                               12):(nrow(sub))] > tc))
@@ -125,7 +132,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       fc1 <- ifelse(nrow(fc1) == 0, 0, fc1$Freq[1])
       plot(sub$TelemDate, sub$FPT100, type = "l", ylab = "FPT (hours)", 
            xlab = "Date", main = "FPT 100m radius", cex = 1.25)
+      
       abline(h = quantile(sub$FPT100, na.rm = T)[4], col = "red")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       tc <- quantile(sub$FPT100, na.rm = T)[4]
       fc2 <- as.data.frame(table(sub$FPT100[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
@@ -147,6 +156,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
            xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=1)
       lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=1)
       lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=2)
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       
       tc <- quantile(sub$FPT150, na.rm = T)[4]
       fc3 <- as.data.frame(table(sub$FPT150[(nrow(sub) - 
@@ -185,6 +195,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
   if (spp == "elk") {
     locdat$CollarSerialNumber <- as.character(as.numeric(as.character(locdat$CollarSerialNumber)))
     vhist$Serial.Number <- as.character(as.numeric(vhist$Serial.Number))
+    if(TRUE %in% (nchar(vhist$ActBD)>0)){
+      vhist$ActBD<-as.POSIXct(paste0(vhist$ActBD,' 5'),'%m/%d/%Y %H',tz='MST')
+    }
     locdat <- locdat[which(locdat$CollarSerialNumber %in% 
                              vhist$Serial.Number), ]
     uni <- unique(locdat$CollarSerialNumber)
@@ -241,6 +254,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                    format = "%Y-%m-%d")), ]
       plot(sub$TelemDate, sub$MR, type = "l", ylab = "Movement Rate", 
            xlab = "Date", main = "Movement Rate", cex = 1.25)
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       sub$MRM <- NA
       sub$MRM[12:nrow(sub)] <- zoo::rollmean(sub$MR, k = 12)
       mm <- quantile(sub$MR[(nrow(sub) - 48):(nrow(sub))], 
@@ -255,9 +269,11 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                            50), ylab = "Metric", xlab = "Date", main = "dBGB Metrics", 
            cex = 1.25)
       lines(sub$TelemDate, sub$paraSd, col = "blue")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       plot(sub$TelemDate, sub$FPT50, type = "l", ylab = "FPT (hours)", 
            xlab = "Date", main = "FPT 50m radius", cex = 1.25)
       abline(h = quantile(sub$FPT50, na.rm = T)[4], col = "red")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       tc <- quantile(sub$FPT50, na.rm = T)[4]
       fc1 <- as.data.frame(table(sub$FPT50[(nrow(sub) - 
                                               12):(nrow(sub))] > tc))
@@ -266,6 +282,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       plot(sub$TelemDate, sub$FPT100, type = "l", ylab = "FPT (hours)", 
            xlab = "Date", main = "FPT 100m radius", cex = 1.25)
       abline(h = quantile(sub$FPT100, na.rm = T)[4], col = "red")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       tc <- quantile(sub$FPT100, na.rm = T)[4]
       fc2 <- as.data.frame(table(sub$FPT100[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
@@ -274,6 +291,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       plot(sub$TelemDate, sub$FPT150, type = "l", ylab = "FPT (hours)", 
            xlab = "Date", main = "FPT 150m radius", cex = 1.25)
       abline(h = quantile(sub$FPT150, na.rm = T)[4], col = "red")
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       tc <- quantile(sub$FPT150, na.rm = T)[4]
       fc3 <- as.data.frame(table(sub$FPT150[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
@@ -292,6 +310,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
            xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=1)
       lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=1)
       lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=2)
+      abline(v=vhsub$ActBD[1],col='green',lty=2)
       #abline(h = quantile(sub$FPT300, na.rm = T)[4], col = "red")
       tc <- quantile(sub$FPT300, na.rm = T)[4]
       fc4 <- as.data.frame(table(sub$FPT300[(nrow(sub) - 
