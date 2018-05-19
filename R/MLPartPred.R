@@ -30,6 +30,6 @@ MLPartPred<-function(jk,spp){
     akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl,type='prob')[,2])
     akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl,type='prob')[,3])
   }
-  rm(rf)
+  #rm(rf)
   return(akl[,c(1,2,28:30)])
 }
