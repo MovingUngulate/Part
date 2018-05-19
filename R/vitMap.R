@@ -272,9 +272,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       
       
       plot(predsub$TelemDate, predsub$Pred0, type = "l", ylab = "Probability", 
-           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1))
-      lines(predsub$TelemDate,predsub$Pred1,col='blue')
-      lines(predsub$TelemDate,predsub$Pred2,col='red')
+           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=0.5)
+      lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=0.5)
+      lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=1.5)
       #abline(h = quantile(sub$FPT300, na.rm = T)[4], col = "red")
       tc <- quantile(sub$FPT300, na.rm = T)[4]
       fc4 <- as.data.frame(table(sub$FPT300[(nrow(sub) - 
