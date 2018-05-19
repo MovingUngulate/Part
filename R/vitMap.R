@@ -131,9 +131,23 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                12):(nrow(sub))] > tc))
       fc2 <- fc2[which(fc2$Var1 == "TRUE"), ]
       fc2 <- ifelse(nrow(fc2) == 0, 0, fc2$Freq[1])
-      plot(sub$TelemDate, sub$FPT150, type = "l", ylab = "FPT (hours)", 
-           xlab = "Date", main = "FPT 150m radius", cex = 1.25)
-      abline(h = quantile(sub$FPT150, na.rm = T)[4], col = "red")
+      # plot(sub$TelemDate, sub$FPT150, type = "l", ylab = "FPT (hours)", 
+      #      xlab = "Date", main = "FPT 150m radius", cex = 1.25)
+      # abline(h = quantile(sub$FPT150, na.rm = T)[4], col = "red")
+      # 
+      
+      predsub<-hg[hg$CollarSerialNumber==uni[l],]
+      
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+      predsub<-predsub[which(predsub$TelemDate>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
+      #predsub<-predsub[predsub>-]
+      
+      
+      plot(predsub$TelemDate, predsub$Pred0, type = "l", ylab = "Probability", 
+           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=1)
+      lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=1)
+      lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=2)
+      
       tc <- quantile(sub$FPT150, na.rm = T)[4]
       fc3 <- as.data.frame(table(sub$FPT150[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
@@ -155,8 +169,13 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       mtext(vf, font = 2, side = 3, line = -50, outer = T, 
             cex = 2)
       dev.off()
+
       cks <- data.frame(MovChk = mc/13, FPT50Chk = fc1/13, 
-                        FPT100Chk = fc2/13, FPT150Chk = fc3/13, stringsAsFactors = F)
+                        FPT100Chk = fc2/13, FPT150Chk = fc3/13,
+                        Pred0Check=predsub$Pred0[nrow(predsub)],
+                        Pred1Check=predsub$Pred1[nrow(predsub)],
+                        Pred2Check=predsub$Pred2[nrow(predsub)],
+                        stringsAsFactors = F)
       cks$Serial <- sub$CollarSerialNumber[1]
       allcks <- rbind(allcks, cks)
     }
@@ -272,9 +291,9 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       
       
       plot(predsub$TelemDate, predsub$Pred0, type = "l", ylab = "Probability", 
-           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=0.5)
+           xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=1)
       lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=1)
-      lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=1.5)
+      lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=2)
       #abline(h = quantile(sub$FPT300, na.rm = T)[4], col = "red")
       tc <- quantile(sub$FPT300, na.rm = T)[4]
       fc4 <- as.data.frame(table(sub$FPT300[(nrow(sub) - 

@@ -148,7 +148,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
                       idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
   
-  hg<-Part::ElkRFPred(mdat2)
+  hg<-Part::MLPartPred(mdat2)
   viout<-Part::locFun(vidat=vi,locdat=mdat2)
   
   viout<-viout[which(viout$CollarSerialNumber %in% mdat2$CollarSerialNumber),]

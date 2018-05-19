@@ -161,7 +161,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   mdat2<-Part::BGBFun(data=mdat,xname='Easting',yname='Northing',timename='TelemDate',
                 idname='CollarSerialNumber',projstring=sp::proj4string(Cdat[[1]]),ncpus=ncpu)
-  
+  hg<-Part::MLPartPred(mdat2)
   if(nchar(vecpath)>0){
     vecVit<-Part::vecVitDat(path=vecpath)
     vecVit$Date<-as.POSIXct(vecVit$Date,format='%m/%d/%Y %H:%M:%S %p')
@@ -249,7 +249,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
 
   
   Part::vitMap(locdat=mdat2,vidat=vi,vhist=vhist,fold=plotfolder,
-                       spp='deer',plotdataPath=plotdatapath)
+                       spp='deer',plotdataPath=plotdatapath,hg=hg)
   
   
   
