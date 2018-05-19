@@ -26,9 +26,9 @@ MLPartPred<-function(jk,spp){
     data("DeerRealTimeRF",package='Part')
     
     
-    akl$Pred0<-as.numeric(randomForest:::predict.randomForest(rf,akl,type='prob')[,1])
-    akl$Pred1<-as.numeric(randomForest:::predict.randomForest(rf,akl,type='prob')[,2])
-    akl$Pred2<-as.numeric(randomForest:::predict.randomForest(rf,akl,type='prob')[,3])
+    akl$Pred0<-as.numeric(randomForest:::predict.randomForest(deerRF,akl,type='prob')[,1])
+    akl$Pred1<-as.numeric(randomForest:::predict.randomForest(deerRF,akl,type='prob')[,2])
+    akl$Pred2<-as.numeric(randomForest:::predict.randomForest(deerRF,akl,type='prob')[,3])
   }
   #rm(rf)
   return(akl[,c(1,2,31:33)])
