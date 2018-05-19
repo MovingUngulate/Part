@@ -257,14 +257,14 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   tabby<-Part::tabFun(vhist=vhist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
   
   if(!('AID' %in% names(tabby))){
-    tabby<-tabby[,c(1,4,2,3,7,8,9,10,11,12:15)]
+    tabby<-tabby[,c(1,4,2,3,8,9,10,11,12,13:16)]
     
     colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
                        'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
                        'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent')
   }
   if('AID' %in% names(tabby)){
-    tabby<-tabby[,c(1,4,2,3,8,9,10,11,12,13:16,6)]
+    tabby<-tabby[,c(1,4,2,3,9,10,11,12,13,14:17,7)]
     
     colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
                        'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
