@@ -60,7 +60,7 @@ ElkRFPred<-function(jk){
   
   
   akl<-akl[complete.cases(akl[,c(19:27)]),]
-  data("ElkRealTimeRF",package='Part')
+  data("ElkRealTimeRF2",package='Part')
   
   
   akl$Pred0<-as.numeric(randomForest:::predict.randomForest(rf,akl[,c(8,9,10,12,13,14,17,18,19:27)],type='prob')[,1])
