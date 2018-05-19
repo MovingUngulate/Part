@@ -41,14 +41,14 @@ tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
 kd<-readRDS(params$chks)
 tabby$Serial<-as.character(tabby$Serial)
 
-kd[,c(6:8)]<-round(kd[,c(6:8)],digits=2)
-kd<-kd[,c(9,6:8)]
+kd[,c(1:3)]<-round(kd[,c(1:3)],digits=2)
+kd<-kd[,c(4,1:3)]
 
 tabby<-merge(tabby,kd,by.x='Serial',by.y='Serial',all.x=T)
 tabby<-tabby[order(tabby$Pred1Check,decreasing = T),]
 
 #names(tabby)[9:12]<-c('FPT50','FPT100','FPT150','FPT300')
-tabby<-tabby[,c(1,2,4,(length(names)-3):length(names))]
+tabby<-tabby[,c(1,2,4,(length(names(tabby))-2):length(names(tabby)))]
 
 
 #tabby$Easting<-floor(tabby$LatestEasting)
