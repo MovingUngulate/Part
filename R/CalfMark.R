@@ -214,7 +214,8 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
       rmarkdown::render(input=system.file("rmd/BaseCalfMark.Rmd", package="Part"), 
                         output_format = 'pdf_document',
                         output_file=paste0(pdffolder,'/1000','.pdf'),
-                        params=list(tabby=fn[,1],chks=fn[,5]),quiet=T)
+                        params=list(tabby=fn[,1],chks=fn[,5],
+                                    vhist=fn[,6]),quiet=T)
       
     }
     if((i+1)<10){
@@ -232,8 +233,7 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
-                                  basepath=paste0(plotfolder,'/'),
-                                  vhist=fn[,6]),quiet=T)
+                                  basepath=paste0(plotfolder,'/')),quiet=T)
     
   }
   
