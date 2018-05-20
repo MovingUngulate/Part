@@ -23,7 +23,11 @@ tabby<-readRDS(params$tabby)
   vhist<-read.csv(params$vhist,stringsAsFactors = F)
   vhist<-vhist[complete.cases(vhist$Serial),]
   vhist<-vhist[which(vhist$Species=='FMD'),]
-  vhist<-vhist[is.na(vhist$ActBD),]
+      if(TRUE %in% (nchar(vhist$ActBD)>0)){
+    vhist$ActBD<-as.POSIXct(paste0(vhist$ActBD,' 5'),'%m/%d/%Y %H',tz='MST')
+      vhist<-vhist[is.na(vhist$ActBD),]
+    }
+
 
 ```
 This is an automated updated for neonate capture.\vspace{5mm}
