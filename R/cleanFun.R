@@ -48,7 +48,7 @@ cleanFun<-function (data, fixstat = "X2D.3D", hdopC = "HDOP", cval = 3,
     names(data)[6:7]<-c('Easting','Northing')
     sp::coordinates(data) <- ~Easting + Northing
     sp::proj4string(data) <- "+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
-    val <- as.numeric(quantile(data@data$HDOP, probs = seq(0,
+    val <- as.numeric(quantile(data@data$HDOP, na.rm = T, probs = seq(0,
                                                            1, 0.1))[hval])
     hdr <- data[which(data@data[, hdopC] > val), ]
     fxr <- data[which(data@data[, fixstat] < cval), ]
