@@ -320,8 +320,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
-                                  basepath=paste0(plotfolder,'/')),
-                                  vhist=fn[,5],quiet=T)
+                                  basepath=paste0(plotfolder,'/'),
+                                  vhist=fn[,5]),quiet=T)
     
   }
   
