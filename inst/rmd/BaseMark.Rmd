@@ -8,6 +8,7 @@ output:
   word_document: null
 params:
   tabby: tabby
+  vhist: vhist
 ---
 \pdfminorversion=5 
 \pdfcompresslevel=9
@@ -19,6 +20,10 @@ library(jpeg)
 
 
 tabby<-readRDS(params$tabby)
+  vhist<-read.csv(params$vhist,stringsAsFactors = F)
+  vhist<-vhist[complete.cases(vhist$Serial),]
+  vhist<-vhist[which(vhist$Species=='FMD'),]
+  vhist<-vhist[is.na(vhist$ActBD),]
 
 ```
 This is an automated updated for neonate capture.\vspace{5mm}
@@ -29,6 +34,7 @@ This is an automated updated for neonate capture.\vspace{5mm}
 \large\textbf {Birth Freqs}
 ```{r,echo=F,warning=FALSE}
 tabby$Serial<-as.character(tabby$Serial)
+tabby<-tabby[tabby$Serial %in% vhist$Serial,]
 tabby$`Mom Freq`<-as.character(tabby$`Mom Freq`)
 tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
 

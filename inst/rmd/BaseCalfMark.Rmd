@@ -9,6 +9,7 @@ output:
 params:
   tabby: tabby
   chks: chks
+  vhist: vhist
 ---
 \pdfminorversion=5 
 \pdfcompresslevel=9
@@ -26,6 +27,11 @@ library(jpeg)
 # load(llist[4])
 
 tabby<-readRDS(params$tabby)
+  vhist<-read.csv(params$vhist,stringsAsFactors = F)
+  vhist<-vhist[complete.cases(vhist$Serial),]
+  vhist<-vhist[which(vhist$Species=='EK'),]
+  vhist<-vhist[is.na(vhist$ActBD),]
+
 #ll<-readRDS('/home/mhayes1/Desktop/DEERPTesting/L12.rds')
 ```
 This is an automated updated for the DEER Project.\vspace{5mm}
@@ -36,6 +42,7 @@ This is an automated updated for the DEER Project.\vspace{5mm}
 \large\textbf {Birth Freqs}
 ```{r,echo=F,warning=FALSE}
 tabby$Serial<-as.character(tabby$Serial)
+tabby<-tabby[tabby$Serial %in% vhist$Serial,]
 tabby$`Mom Freq`<-as.character(tabby$`Mom Freq`)
 tabby$`VIT Freq`<-as.character(tabby$`VIT Freq`)
 kd<-readRDS(params$chks)

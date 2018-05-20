@@ -203,7 +203,8 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
     
     fn<-data.frame(datastore=datastore,prettydatastore=PrettyDataStore,
                    pathloc=paste0(tempdir,'path.RDS'),plotpath=llist[i],
-                   chks=paste0(tempdir,'PlotData_Elk.RDS'),stringsAsFactors=F)
+                   chks=paste0(tempdir,'PlotData_Elk.RDS'),
+                   vhist=lookup,stringsAsFactors=F)
     #saveRDS(fn,paste0(tempdir,'AllPaths.RDS'))
     #saveRDS(llist[i],paste0(paste0(pdfpath,'rds/'),'path','.RDS'))
     
@@ -231,7 +232,8 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
-                                  basepath=paste0(plotfolder,'/')),quiet=T)
+                                  basepath=paste0(plotfolder,'/')),
+                                  vhist=fn[,6],quiet=T)
     
   }
   

@@ -291,7 +291,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     #sb<-gsub('.png','',sb)
     
     fn<-data.frame(datastore=datastore,prettydatastore=PrettyDataStore,
-                   pathloc=paste0(tempdir,'path.RDS'),plotpath=llist[i],stringsAsFactors=F)
+                   pathloc=paste0(tempdir,'path.RDS'),plotpath=llist[i],
+                   vhist=lookup,stringsAsFactors=F)
     #saveRDS(fn,paste0(tempdir,'AllPaths.RDS'))
     #saveRDS(llist[i],paste0(paste0(pdfpath,'rds/'),'path','.RDS'))
     
@@ -319,7 +320,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                       params=list(tabby=fn[,1],
                                   ll=fn[,2],
                                   plotlink=fn[,4],
-                                  basepath=paste0(plotfolder,'/')),quiet=T)
+                                  basepath=paste0(plotfolder,'/')),
+                                  vhist=fn[,5],quiet=T)
     
   }
   
