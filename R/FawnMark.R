@@ -264,7 +264,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
                        'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent')
   }
   if('AID' %in% names(tabby)){
-    tabby<-tabby[,c(1,4,2,3,9,10,11,12,13,14:17,7)]
+    tabby<-tabby[,c(1,4,2,3,9,10,11,12,13,14:17,6)]
     
     colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
                        'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
