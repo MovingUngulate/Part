@@ -63,6 +63,8 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                      ]
       subvidat <- subvidat[order(subvidat$Date, decreasing = T), 
                            ]
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+      subvidat<-subvidat[which(subvidat$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
       sub$FPT50 <- ifelse(is.na(sub$FPT50),0, sub$FPT50)
       sub$FPT100 <- ifelse(is.na(sub$FPT100), 
                            0, sub$FPT100)
