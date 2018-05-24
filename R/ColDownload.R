@@ -48,7 +48,7 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     #submit the form
     p2<-rvest::submit_form(s,f1[[1]],'btt_SignIn')
 
-    p<-as.character(p2$handle$url)
+    p<-as.character(p2$url)
       })
       
     }
