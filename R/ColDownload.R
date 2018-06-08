@@ -140,21 +140,21 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     close(con)
 
     spl<-unlist(strsplit(first_line,split=','))
-
+    options(warn=-1)
     if(TRUE %in% grepl('Latitude',spl)){
-    d2<-read.table(d1P,stringsAsFactors = F,sep=',',fill=T,
+    d2<-read.table(d1P,stringsAsFactors = F,sep=',',row.names=NULL,fill=T,
                    col.names=paste('column',1:18,sep='_'))
 
     d2<-d2[-1,c(1:15)]
 
     }else{
-      d2<-read.table(d1P,stringsAsFactors = F,sep=',',fill=T,
+      d2<-read.table(d1P,stringsAsFactors = F,sep=',',row.names=NULL,fill=T,
                      col.names=paste('column',1:16,sep='_'))
       
       d2<-d2[-1,-16]
     }
 
-
+   options(warn=0)
 
 
     names(d2)<-c('Serial','TelemDate','NumFixes','BattVoltage','Mortality','BreakOff','GPSOnTime','SatOnTime',
