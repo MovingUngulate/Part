@@ -166,7 +166,8 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
     vecVit<-Part::vecVitDat(path=vecpath)
     vecVit$Date<-as.POSIXct(vecVit$Date,format='%m/%d/%Y %H:%M:%S %p')
     vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
-    vi<-rbind(vi,vecVit)
+    names(vi)[c(1:12,16:21)]<-names(vecVit)
+    vi <- rbind(vi[,c(1:12,16:21)], vecVit)
   }
   if(nchar(vecpath)==0){
     vi$Date<-as.POSIXct(vi$Date,format='%m/%d/%Y %I:%M:%S %p')
