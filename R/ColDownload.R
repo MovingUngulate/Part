@@ -139,6 +139,7 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     first_line <- readLines(con,n=1)
     close(con)
     spl<-unlist(strsplit(first_line,split=','))
+
     con <- file(d1P, "r")
     all<-readLines(con)
     all<-all[-1]
@@ -148,7 +149,8 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     names(d2)<-spl
     
     
-    
+
+
     fixfun <- function(x) {
       outp <- "No"
       if (grepl("Unknown-No Sync", x["Event"]) == TRUE) {
