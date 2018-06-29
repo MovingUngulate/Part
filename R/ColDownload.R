@@ -142,6 +142,7 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
 
     con <- file(d1P, "r")
     all<-readLines(con)
+    close(con)
     all<-all[-1]
     pattern <- "^([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(.*),([^,]*),([^,]*),([^,]*)$"
     d2<-as.data.frame(stringr::str_match(all, pattern)[,-1],stringsAsFactors = F)
