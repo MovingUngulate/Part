@@ -112,13 +112,13 @@ CalfMark<-function(ATSUser,ATSPass,tempdir,
   vi<-dd[[2]]
   names(vi)[1]<-'CollarSerialNumber'
   names(vi)[2]<-'Date'
-  vi$Da<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[[1]]})
-  vi$Ti<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[[2]]})
-  vi$PM<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[[3]]})
+  vi$Da<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[1]})
+  vi$Ti<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[2]})
+  vi$PM<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Date'],' '))[3]})
   
-  vi$Month<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[[1]]})
-  vi$Day<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[[2]]})
-  vi$Year<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[[3]]})
+  vi$Month<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[1]})
+  vi$Day<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[2]})
+  vi$Year<-apply(vi,1,FUN=function(x) {unlist(strsplit(x['Da'],'/'))[3]})
   
   vi$Ti<-ifelse(nchar(vi$Ti)==7,paste0('0',vi$Ti),vi$Ti)
   vi$Month<-ifelse(nchar(vi$Month)==1,paste0('0',vi$Month),vi$Month)

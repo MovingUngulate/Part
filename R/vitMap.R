@@ -207,7 +207,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
     sub <- sub[with(sub, order(sub[, "TelemDate"])), ]
     newdata <- adehabitatLT::as.ltraj(sub[, c("Easting", "Northing")], 
                                       sub[, "TelemDate"], id = sub[, "CollarSerialNumber"])
-    fpt <- adehabitatLT::fpt(newdata, c(50, 100, 150, 200, 300), "hours")
+    fpt <- adehabitatLT::fpt(newdata, c(100, 250, 500, 750, 1000), "hours")
     out <- data.frame()
     for (k in 1:length(uni)) {
       sloc <- locdat[which(locdat$CollarSerialNumber == 
