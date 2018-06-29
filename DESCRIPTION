@@ -32,5 +32,6 @@ Imports:
     jpeg,
     tinytex,
     randomForest,
-    caTools
+    caTools,
+    stringr
 RoxygenNote: 6.0.1

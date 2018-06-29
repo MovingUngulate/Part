@@ -138,235 +138,204 @@ ColDownload<-function(username="",password="",dirdown="",cType='ATS/IRID'){
     con <- file(d1P,"r")
     first_line <- readLines(con,n=1)
     close(con)
-
     spl<-unlist(strsplit(first_line,split=','))
-
-    if(TRUE %in% grepl('Latitude',spl)){
-    d2<-read.table(d1P,stringsAsFactors = F,sep=',',fill=T,
-                   col.names=paste('column',1:18,sep='_'))
-
-    d2<-d2[-1,c(1:15)]
-
-    }else{
-      d2<-read.table(d1P,stringsAsFactors = F,sep=',',fill=T,
-                     col.names=paste('column',1:16,sep='_'))
-      
-      d2<-d2[-1,-16]
-    }
-
-
-
-
-    names(d2)<-c('Serial','TelemDate','NumFixes','BattVoltage','Mortality','BreakOff','GPSOnTime','SatOnTime',
-                 'SatErrors','GMTOffset','LowBatt','Event1','Event2','Event3','Event4')
-
-    dd<-d2[,1:11]
-
-
-    de<-d2[,c(1,2,12:15)]
-    options(warn=-1)
-    de$Event1<-ifelse(is.na(as.numeric(de$Event1)),de$Event1,'')
-    de$Event2<-ifelse(is.na(as.numeric(de$Event2)),de$Event2,'')
-    de$Event3<-ifelse(is.na(as.numeric(de$Event3)),de$Event3,'')
-    de$Event4<-ifelse(is.na(as.numeric(de$Event4)),de$Event4,'')
-
-                            options(warn=0)
-    de$All<-paste(de$Event1,de$Event2,de$Event3,de$Event4,sep=':')
-
+    con <- file(d1P, "r")
+    all<-readLines(con)
+    all<-all[-1]
+    pattern <- "^([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(.*),([^,]*),([^,]*),([^,]*)$"
+    d2<-as.data.frame(stringr::str_match(all, pattern)[,-1],stringsAsFactors = F)
+    
+    names(d2)<-spl
+    
+    
+    
     fixfun <- function(x) {
       outp <- "No"
-      if (grepl("Unknown-No Sync:::", x["All"]) == TRUE) {
+      if (grepl("Unknown-No Sync", x["Event"]) == TRUE) {
         outp <- "Unknown/No Sync"
         return(outp)
       }
-      if (grepl("Birth-Not yet triggered:::", x["All"]) == 
+      if (grepl("Birth-Not yet triggered", x["Event"]) == 
           TRUE) {
         outp <- "Birth Not yet triggered"
         return(outp)
       }
-
-      if (grepl("Birth-triggered by temperature:::", x["All"]) == 
+      if (grepl("None", x["Event"]) == 
+          TRUE) {
+        outp <- "None"
+        return(outp)
+      }
+      if (grepl("Birth-triggered by temperature", x["Event"]) == 
           TRUE) {
         outp <- "Birth triggered by temperature"
         return(outp)
       }
-      if (grepl("Birth-triggered by light:::", x["All"]) == 
+      if (grepl("Birth-triggered by light", x["Event"]) == 
           TRUE) {
         outp <- "Birth triggered by light"
         return(outp)
       }
-      if (grepl("Birth-triggered by light and temperature:::", 
-                x["All"]) == TRUE) {
+      if (grepl("Birth-triggered by light and temperature", 
+                x["Event"]) == TRUE) {
         outp <- "Birth triggered by light and temperature"
         return(outp)
       }
-      if (grepl("Birth-triggered by lack of comm:::", x["All"]) == 
+      if (grepl("Birth-triggered by lack of comm", x["Event"]) == 
           TRUE) {
         outp <- "Birth triggered by lack of comm"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1-Comm:Comm:", x["All"]) == 
+      if (grepl("Fawn0,Fawn1-Comm,Comm,", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Comm:Fawn1-Comm"
         return(outp)
       }
-      if (grepl("Fawn0-Comm:::", x["All"]) == TRUE) {
+      if (grepl("Fawn0-Comm", x["Event"]) == TRUE) {
         outp <- "Fawn0-Comm"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1:None-Comm:Absence", x["All"]) == 
+      if (grepl("Fawn0-Mortality", x["Event"]) == TRUE) {
+        outp <- "Fawn0-Mortality"
+        return(outp)
+      }
+      if (grepl("Fawn0-Absence", x["Event"]) == TRUE) {
+        outp <- "Fawn0-Absence"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1-Mortality,Mortality", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Mortality:Fawn1-Mortality"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1-Absence,Mortality", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Absence:Fawn1-Mortality"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Mortality,Mortality,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Mortality:Fawn1-Mortality"
+        return(outp)
+      }
+      if (grepl("None,None,None-None,None,None", x["Event"]) == 
+          TRUE) {
+        outp <- "None"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Comm,Absence,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Comm:Fawn1-Absence"
         return(outp)
       }
-      if (grepl("Fawn0-Absence:::", x["All"]) == TRUE) {
-        outp <- "Fawn0-Absence"
-        return(outp)
-      }
-      if (grepl("Fawn0-Mortality:::", x["All"]) == TRUE) {
-        outp <- "Fawn0-Mortality"
-        return(outp)
-      }
-      if (grepl("Fawn0:None:None-Absence:None", x["All"]) == 
+      if (grepl("", x["Event"]) == 
           TRUE) {
-        outp <- "Fawn0-Absence"
+        outp <- "None"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1-Comm:Not yet triggered:", 
-                x["All"]) == TRUE) {
-        outp <- "Fawn0-Comm:Fawn1-Not Yet Triggered"
+      if (grepl("Fawn0,Fawn1-Comm,Not yet triggered", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Comm:Fawn1-Not yet triggered"
         return(outp)
       }
-      if (grepl("Fawn0:None:None-Comm:None", x["All"]) == 
+      if (grepl("Fawn0,None,None-Comm,None,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Comm"
         return(outp)
       }
-      if (grepl("Fawn0:None-Absence:None:", x["All"]) == 
+      if (grepl("Fawn0,None,None-Absence,None,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Absence"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1:None-Absence:Absence", x["All"]) == 
+      if (grepl("Fawn0,None-Absence,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Absence"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Absence,Absence,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Absence:Fawn1-Absence"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1-Comm:Mortality:", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Comm:Fawn1-Mortality"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1-Absence:Comm:", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Absence:Fawn1-Comm"
-        return(outp)
-      }
-      if (grepl("None:None:None-None:None", x["All"]) == 
-          TRUE) {
-        outp <- "No Status"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1-Mortality:Comm:", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Mortality:Fawn1-Comm"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1-Absence:Mortality:", x["All"]) == 
+      if (grepl("Fawn0,Fawn1,None-Absence,Mortality,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Absence:Fawn1-Mortality"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1-Mortality:Mortality:", x["All"]) == 
+      if (grepl("Fawn0,Fawn1-Comm,Mortality", x["Event"]) == 
           TRUE) {
-        outp <- "Fawn0-Mortality:Fawn1-Mortality"
+        outp <- "Fawn0-Comm:Fawn1-Mortality"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1:None-Absence:Comm", x["All"]) == 
+      if (grepl("Fawn0,Fawn1-Absence,Comm", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Absence:Fawn1-Comm"
         return(outp)
       }
-      if (grepl("Fawn0:None:None-Mortality:None", x["All"]) == 
+      if (grepl("Fawn0,None,None-Mortality,None,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Mortality"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1-Mortality:Not yet triggered:", 
-                x["All"]) == TRUE) {
-        outp <- "Fawn0-Mortality:Fawn1-Not yet triggered"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Comm:Comm", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Comm:Fawn1-Comm"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Mortality:Absence", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Mortality:Fawn1-Absence"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Absence:Mortality", x["All"]) == 
-          TRUE) {
-        outp <- "Fawn0-Absence:Fawn1-Mortality"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Mortality:Mortality", 
-                x["All"]) == TRUE) {
-        outp <- "Fawn0-Mortality:Fawn1-Mortality"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Comm:Not yet triggered", 
-                x["All"]) == TRUE) {
-        outp <- "Fawn0-Comm:Fawn1-Not yet triggered"
-        return(outp)
-      }
-      if (grepl("Fawn0:Fawn1:None-Mortality:Comm", x["All"]) == 
+      if (grepl("Fawn0,Fawn1-Mortality,Comm", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Mortality:Fawn1-Comm"
         return(outp)
       }
-      if (grepl("None:Fawn1:None-None:Not yet triggered", 
-                x["All"]) == TRUE) {
+      if (grepl("Fawn0,Fawn1,None-Absence,Comm,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Absence:Fawn1-Comm"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Mortality,Comm,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Mortality:Fawn1-Comm"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Mortality,Absence,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Mortality:Fawn1-Absence"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Comm,Not yet triggered,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Comm:Fawn1-Not yet triggered"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Absence,Not yet triggered,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Absence:Fawn1-Not yet triggered"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1-Mortality,Not yet triggered", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Mortality:Fawn1-Not yet triggered"
+        return(outp)
+      }
+      if (grepl("Fawn0,Fawn1,None-Comm,Comm,None", x["Event"]) == 
+          TRUE) {
+        outp <- "Fawn0-Comm:Fawn1-Comm"
+        return(outp)
+      }
+      if (grepl("None,Fawn1,None-None,Not yet triggered,None", x["Event"]) == 
+          TRUE) {
         outp <- "Fawn1-Not yet triggered"
         return(outp)
       }
-      if (grepl("Fawn0:Fawn1:None-Comm:Mortality", x["All"]) == 
+      if (grepl("Fawn0,Fawn1,None-Comm,Mortality,None", x["Event"]) == 
           TRUE) {
         outp <- "Fawn0-Comm:Fawn1-Mortality"
         return(outp)
       }
-      if (nchar(x["All"]) == 0) {
-        outp <- "No Status"
-        return(outp)
-      }
-      if (outp == "None:None:None-None:None") {
-        outp <- "Unknown Status Message"
-        return(outp)
-      }
-      if (outp == "No") {
-        outp <- "Unknown Status Message"
-        return(outp)
-      }
-      if (grepl("None:::", x["All"]) == 
-          TRUE) {
-        outp <- "No Status"
-        return(outp)
-      }
-      if (grepl(":::", x["All"]) == TRUE) {
-        outp <- "No Status"
-        return(outp)
-      }
-      #return(outp)
+      
+      outp <- "Unknown Status Message"
+      return(outp)
+      
     }
-
-    de$RealStatus<-apply(de,1,FUN=fixfun)
-
-
-    de<-de[,c(1,2,8)]
-
-    dd<-cbind(dd,de[,3])
+    d2$Event <- apply(d2, 1, FUN = fixfun)
+    # de <- de[, c(1, 2, 8)]
+    # dd <- cbind(dd, de[, 3])
+    dd<-d2
 
     names(dd)[12]<-'NeoLink Status'
 
