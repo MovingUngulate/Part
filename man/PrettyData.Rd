@@ -4,7 +4,8 @@
 \alias{PrettyData}
 \title{Make data pretty}
 \usage{
-PrettyData(dat, idl, filen = "C:/Users/mhayes1/Desktop/fawnStuff/L12.rds")
+PrettyData(dat, idl,
+  filen = "C:/Users/mhayes1/Desktop/fawnStuff/L12.rds")
 }
 \arguments{
 \item{dat}{movement data}

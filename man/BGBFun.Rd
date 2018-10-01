@@ -4,8 +4,8 @@
 \alias{BGBFun}
 \title{BiVariate Gaussian Bridge Stats}
 \usage{
-BGBFun(data, xname, yname, timename, idname, projstring, ncpus, msize = 21,
-  winsize = 43)
+BGBFun(data, xname, yname, timename, idname, projstring, ncpus,
+  msize = 21, winsize = 43)
 }
 \arguments{
 \item{data}{GPS data either as data.frame}

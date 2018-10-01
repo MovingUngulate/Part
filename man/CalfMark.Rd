@@ -5,8 +5,8 @@
 \title{Daily Calf Update}
 \usage{
 CalfMark(ATSUser, ATSPass, tempdir, ncpu, lookup, from = NA, to = NA,
-  subject = NA, SP = NA, progpath = NA, username = NA, password = NA,
-  email = "no", systype = "Win")
+  subject = NA, SP = NA, progpath = NA, username = NA,
+  password = NA, email = "no", systype = "Win")
 }
 \arguments{
 \item{ATSPass}{character vector of ATS passwords}

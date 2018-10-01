@@ -1,13 +1,13 @@
 Package: Part
 Type: Package
 Title: Ungulate Parturition Modeling and Predicting
-Version: 0.1.1
+Version: 0.4
 Author: Matthew M. Hayes
 Maintainer: Matthew M. Hayes <mhayes1@uwyo.edu>
 Description: This package leverages ungulate movement data to model and predict 
     time and day of parturition. This is done using machine learning algorithms
     and simple movement statistics. These methods have been tested and verified
-    only on ungulate (mule deer, elk and moose). As a courtesy, several functions
+    only on ungulates (mule deer, elk, bighorn sheep and moose). As a courtesy, several functions
     that automate downloading data from common ungulate collar company websites
     are also included.
 BugReports: https://github.com/MovingUngulate/Part
@@ -33,5 +33,14 @@ Imports:
     tinytex,
     randomForest,
     caTools,
-    stringr
-RoxygenNote: 6.0.1
+    stringr,
+    maptools,
+    plyr,
+    lattice,
+    ggplot2,
+    caret,
+    missForest,
+    iterators,
+    itertools,
+    foreach
+RoxygenNote: 6.1.0

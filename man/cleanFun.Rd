@@ -4,8 +4,8 @@
 \alias{cleanFun}
 \title{GPS Data Cleaning}
 \usage{
-cleanFun(data, fixstat = "X2D.3D", hdopC = "HDOP", cval = 3, hval = 10,
-  filename, type = "irid", spp = "Elk")
+cleanFun(data, fixstat = "X2D.3D", hdopC = "HDOP", cval = 3,
+  hval = 10, filename, type = "irid", spp = "Elk")
 }
 \arguments{
 \item{data}{SpatialPointsDataFrame as outputed from GStar or Irid. May work with others that are in UTM 12N.}
