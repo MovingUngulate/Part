@@ -102,7 +102,7 @@ CalfMark(    ATSUser=c('ATSLogin'),
 
 
 
-<img align='center' src="man/figures/ExamplePart.jpg" align="left" height="850" width="725" />
+<img align='center' src="man/figures/ExamplePart.jpg" align="left" height="850" width="800" />
 
 
 This shows several different plots to help detect parturition in real-time. 
