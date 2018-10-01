@@ -20,8 +20,8 @@
 #' @return List of length 2. 1) aggregates the model training - prediction results, 2) aggregates the predicted results to make a final prediction. Also saves all steps in /Results folder within the folder given to function
 #' @keywords part, parturition, parturition prediction
 #' @export
-PartWrap<-function(dat,projstring,dataset,saveby,time.zone,ncpus,folder,
-                   mean_date,bday_dat,idname='UAID',sampsize=80,prepBoots,finBoots,imp=FALSE){
+PartWrap<-function(dat,projstring,dataset,saveby='Study',time.zone,ncpus,folder,
+                   mean_date,bday_dat,idname='UAID',sampsize=80,prepBoots=75,finBoots,imp=FALSE){
 
   ab<-Sys.time()
 

@@ -34,7 +34,7 @@ https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
 Will not email on Unix like systems. Need to set email='no' and email another way. as of V0.4
 
 
-## General Thoughts
+## General Thoughts - RealTime (scroll to bottom for "histori" predictions)
 
 There are a number of ways to use Part. Are you trying to use code to replace Vaginal Implant Transmitters (VITs)? Are you trying to look back at past movement datasets to determine if you can identify parturition. Do you have a new species which we could add to the growing list of base species models?
 
@@ -91,3 +91,86 @@ CalfMark(    ATSUser=c('ATSLogin'),
 # Example of what parturition looks like using this method (mule deer)
 
 <img src="man/figures/ExamplePart.jpg" align="left" height="1000" width="900" />
+
+
+
+
+
+# Historic Model Building/Predictions
+
+Models are initially built using a dataset with GPS data and known birth dates from VIT data.
+
+## To Create historic models and validate internally:
+
+```{r}
+
+time.zone = 'Etc/GMT-7'
+proj = '+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'
+
+parts<-Part::PartWrap(dat=dat,
+                      projstring=proj,
+                      time.zone=time.zone,
+                      dataset="AKMoose",
+                      ncpus=75,
+                      folder='/home/puma/Desktop/RunningPart/Results/AKMoose',
+                      mean_date=148,
+                      bday_dat=bday_dat,
+                      sampsize=80,
+                      finBoots=100)
+```
+
+Things are fairly simple here.
+
+dat = GPS data as a data.frame
+  Columns are:
+  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+  TelemDate - POSIXct time/date field
+  x - x coordinate (numeric)
+  y - y coordinate (numeric)
+  
+proj = projection of your data (MUST be a UTM/meter projection)
+
+time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
+dataset = a name for your dataset. Files will be created with this name attached
+ncpus = how many cpus for parallel functions
+folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
+mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
+bday_dat = data.frame with two columns
+  Columns are:
+  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+  Date.of.Birth - POSIXct formatted date of parturition
+sampsize = what proportion of animals to use in each bootstrap (eg. 80 = 80%)
+finBoots = how many bootstraps to conduct
+
+
+
+## To predict to new data from historic models and/or validate externally:
+```{r}
+preds<-Part::Part_PredWrap(rfmod =           readRDS('/home/puma/Desktop/RunningPart/Results/DEERElk/Results/RFModsForPredict_20180926.RDS'),
+                           dat = dat,
+                           mean_date = 148,
+                           projstring = proj,
+                           dataset = 'Starkey_Elk',
+                           time.zone = time.zone,
+                           ncpus = 80,
+                           folder = '/home/puma/Desktop/RunningPart',
+                           imp=FALSE)
+```
+
+Things are fairly simple here.
+
+rfmod = the previously saved RFModsForPredict that you got from building models originally
+dat = New GPS data as a data.frame
+  Columns are:
+  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+  TelemDate - POSIXct time/date field
+  x - x coordinate (numeric)
+  y - y coordinate (numeric)
+  
+mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
+proj = projection of your data (MUST be a UTM/meter projection)
+dataset = a name for your dataset. Files will be created with this name attached
+time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
+ncpus = how many cpus for parallel functions
+folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
+imp = TRUE or FALSE for if missing data should be imputed using missForest. Should only be set to true if models do not predict as expected.
