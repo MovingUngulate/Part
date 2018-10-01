@@ -118,16 +118,16 @@ Models are initially built using a dataset with GPS data and known birth dates f
 time.zone = 'Etc/GMT-7'
 proj = '+proj=utm +zone=12 +ellps=GRS80 +datum=NAD83 +units=m +no_defs'
 
-parts<-Part::PartWrap(dat=dat,
-                      projstring=proj,
-                      time.zone=time.zone,
-                      dataset="AKMoose",
-                      ncpus=75,
-                      folder='/home/puma/Desktop/RunningPart/Results/AKMoose',
-                      mean_date=148,
-                      bday_dat=bday_dat,
-                      sampsize=80,
-                      finBoots=100)
+parts<-Part::Part_Wrap(dat=dat,
+                       projstring=proj,
+                       time.zone=time.zone,
+                       dataset="AKMoose",
+                       ncpus=75,
+                       folder='/home/puma/Desktop/RunningPart/Results/AKMoose',
+                       mean_date=148,
+                       bday_dat=bday_dat,
+                       sampsize=80,
+                       finBoots=100)
 ```
 Things are fairly simple here.
 
@@ -151,6 +151,15 @@ Things are fairly simple here.
 - sampsize = what proportion of animals to use in each bootstrap (eg. 80 = 80%)
 - finBoots = how many bootstraps to conduct
 
+### Model outputs and internal validation
+
+The output of Part_Wrap is a list. The first element ([[1]]) is a data.frame showing each animal and some statistics about the model fit for that animal. You can use different metrics to determine the day of year; for all of the building process, we used the Mean predicted day. If you'd like to see a simple plot:
+
+```{r}
+hist(parts[[1]]$MeanDif)
+summary(parts[[1]]$MeanDif)
+```
+The difference is calculated as Actual Day of Parturition - Predicted Day of Parturition. This histogram will show you how well the model works
 
 
 ## To predict to new data from historic models and/or validate externally:
