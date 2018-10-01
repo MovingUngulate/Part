@@ -164,7 +164,7 @@ The difference is calculated as Actual Day of Parturition - Predicted Day of Par
 
 ## To predict to new data from historic models and/or validate externally:
 ```{r}
-preds<-Part::Part_PredWrap(rfmod =readRDS('/home/puma/Desktop/RunningPart/Results/DEERElk/Results/RFModsForPredict_20180926.RDS'),
+preds<-Part::Part_PredWrap(rfmod = readRDS('/home/puma/Desktop/RunningPart/Results/DEERElk/Results/RFModsForPredict_20180926.RDS'),
                            dat = dat,
                            mean_date = 148,
                            projstring = proj,
