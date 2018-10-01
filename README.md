@@ -102,20 +102,7 @@ CalfMark(    ATSUser=c('ATSLogin'),
 
 
 
-<img align='center' src="man/figures/ExamplePart.jpg" align="left" height="850" width="800" />
-
-
-This shows several different plots to help detect parturition in real-time. 
-
- - Top Left: Vit Status
- - Top Right: Movement Rate
- - Middle Left: dynamic bivariate gaussian bridge metrics
- - Middle Right: First Passage Time 50m radius
- - Bottom Left: First Passage Time 100m radius
- - Bottom Right: First Passage Time 150m radius
- 
-
-The real-time output from Part contains the above figure for each animal. In addition, the first pages of the FawnMark/CalfMark show an updated status for every animal in your lookup table. This includes their VIT status, location and last fix time stamp.
+The first pages of the real-time FawnMark/CalfMark show an updated status for every animal in your lookup table. This includes their VIT status, location and last fix time stamp.
 
 <img align='center' src="man/figures/p1.jpg" align="left" height="913" width="708" />
 
@@ -140,6 +127,23 @@ Column Description:
 <img align='center' src="man/figures/p2.jpg" align="left" height="913" width="708" />
 
 
+Following the initial report, each animal has a detailed page like:
+
+
+<img align='center' src="man/figures/ExamplePart.jpg" align="left" height="850" width="800" />
+
+
+This shows several different plots to help detect parturition in real-time. 
+
+ - Top Left: Vit Status
+ - Top Right: Movement Rate
+ - Middle Left: dynamic bivariate gaussian bridge metrics
+ - Middle Right: First Passage Time 50m radius
+ - Bottom Left: First Passage Time 100m radius
+ - Bottom Right: First Passage Time 150m radius
+ 
+
+- - -
 
 ### How to use real-time predictions
 
