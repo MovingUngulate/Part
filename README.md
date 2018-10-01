@@ -117,7 +117,7 @@ This shows several different plots to help detect parturition in real-time.
 
 The real-time output from Part contains the above figure for each animal. In addition, the first pages of the FawnMark/CalfMark show an updated status for every animal in your lookup table. This includes their VIT status, location and last fix time stamp.
 
-<img src="man/figures/p1.jpg" align="left" height="913" width="708" />
+<img align='center' src="man/figures/p1.jpg" align="left" height="913" width="708" />
 
 - - -
 
@@ -137,7 +137,7 @@ Column Description:
  - M_Northing: Northing of mothers current location
  - LastDate: Time/Date of last fix for mother
 
-<img src="man/figures/p2.jpg" align="left" height="913" width="708" />
+<img align='center' src="man/figures/p2.jpg" align="left" height="913" width="708" />
 
 
 
