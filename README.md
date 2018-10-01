@@ -34,7 +34,7 @@ https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
 Will not email on Unix like systems. Need to set email='no' and email another way. as of V0.4
 
 
-## General Thoughts - RealTime (scroll to bottom for "histori" predictions)
+## General Thoughts - RealTime (scroll to bottom for "historic" predictions)
 
 There are a number of ways to use Part. Are you trying to use code to replace Vaginal Implant Transmitters (VITs)? Are you trying to look back at past movement datasets to determine if you can identify parturition. Do you have a new species which we could add to the growing list of base species models?
 
@@ -92,9 +92,20 @@ CalfMark(    ATSUser=c('ATSLogin'),
 
 <img src="man/figures/ExamplePart.jpg" align="left" height="1000" width="900" />
 
+- - -
 
+This shows several different plots to help detect parturition in real-time. 
 
+ - Top Left: Vit Status
+ - Top Right: Movement Rate
+ - Middle Left: dynamic bivariate gaussian bridge metrics
+ - Middle Right: First Passage Time 50m radius
+ - Bottom Left: First Passage Time 100m radius
+ - Bottom Right: First Passage Time 150m radius
 
+- - -
+
+- - -
 
 # Historic Model Building/Predictions
 
@@ -118,29 +129,27 @@ parts<-Part::PartWrap(dat=dat,
                       sampsize=80,
                       finBoots=100)
 ```
-
 Things are fairly simple here.
 
-dat = GPS data as a data.frame
-  Columns are:
-  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
-  TelemDate - POSIXct time/date field
-  x - x coordinate (numeric)
-  y - y coordinate (numeric)
+- dat = GPS data as a data.frame
+  - Columns are:
+    - UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+    - TelemDate - POSIXct time/date field
+    - x - x coordinate (numeric)
+    - y - y coordinate (numeric)
   
-proj = projection of your data (MUST be a UTM/meter projection)
-
-time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
-dataset = a name for your dataset. Files will be created with this name attached
-ncpus = how many cpus for parallel functions
-folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
-mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
-bday_dat = data.frame with two columns
-  Columns are:
-  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
-  Date.of.Birth - POSIXct formatted date of parturition
-sampsize = what proportion of animals to use in each bootstrap (eg. 80 = 80%)
-finBoots = how many bootstraps to conduct
+- proj = projection of your data (MUST be a UTM/meter projection)
+- time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
+- dataset = a name for your dataset. Files will be created with this name attached
+- ncpus = how many cpus for parallel functions
+- folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
+- mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
+- bday_dat = data.frame with two columns
+    - Columns are:
+      - UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+      - Date.of.Birth - POSIXct formatted date of parturition
+- sampsize = what proportion of animals to use in each bootstrap (eg. 80 = 80%)
+- finBoots = how many bootstraps to conduct
 
 
 
@@ -159,18 +168,18 @@ preds<-Part::Part_PredWrap(rfmod =           readRDS('/home/puma/Desktop/Running
 
 Things are fairly simple here.
 
-rfmod = the previously saved RFModsForPredict that you got from building models originally
-dat = New GPS data as a data.frame
-  Columns are:
-  UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
-  TelemDate - POSIXct time/date field
-  x - x coordinate (numeric)
-  y - y coordinate (numeric)
+- rfmod = the previously saved RFModsForPredict that you got from building models originally
+- dat = New GPS data as a data.frame
+  - Columns are:
+    - UAID - character of unique animal id_year ('201_2016'; this is animal ID 201 for 2016)
+    - TelemDate - POSIXct time/date field
+    - x - x coordinate (numeric)
+    - y - y coordinate (numeric)
   
-mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
-proj = projection of your data (MUST be a UTM/meter projection)
-dataset = a name for your dataset. Files will be created with this name attached
-time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
-ncpus = how many cpus for parallel functions
-folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
-imp = TRUE or FALSE for if missing data should be imputed using missForest. Should only be set to true if models do not predict as expected.
+- mean_date = the average julian day of parturition in your dataset (the data is clipped +- around this to cut down on data)
+- proj = projection of your data (MUST be a UTM/meter projection)
+- dataset = a name for your dataset. Files will be created with this name attached
+- time.zone = time.zone for the TelemDate column in the format above (eg. 'Etc/GMT-7' for mountain time)
+- ncpus = how many cpus for parallel functions
+- folder = the folder you'd like to save everything in. WILL BE DELETED EACH TIME YOU RUN THE FUNCTION
+- imp = TRUE or FALSE for if missing data should be imputed using missForest. Should only be set to true if models do not predict as expected.
