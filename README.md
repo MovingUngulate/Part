@@ -2,6 +2,8 @@
 
 ## Overview
 
+### If you have issues, please leave them on the issues tab so they can be addressed!
+
 Part is a suite of tools to aid in modeling and predicting ungulate parturition both in real time
 and on historic or previously collected datasets.
 
