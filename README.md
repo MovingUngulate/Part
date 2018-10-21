@@ -25,7 +25,7 @@ To install:
 ```{r}
 install.packages("devtools")
 
-devtools::install_github("MovingUngulates/Part")
+devtools::install_github("MovingUngulate/Part")
 ```
 
 You may not have all the packages installed. If you do not, there will be a list of packages that are missing. Install the missing packages and re-install Part with the above code.
