@@ -17,11 +17,15 @@
 #' @param sampsize Percent of animals to use to train model (default percent = 80)
 #' @param prepBoots bootstraps to use when preparing variables/model (~20 is sufficient)
 #' @param finBoots bootstraps to use when creating final model (200-1000)
+#' @param part_type character vector: 'date' assings all rows with the parturition date as the response, 'dist' searches targ_time either side of the date and assigns rows as response if distance of that fix is < targ_dist
+#' @param targ_dist number determining how far away from birth location to assign as parturition (default is 300 meters)
+#' @param targ_time number defining how far to look either side of date when assigning parturition in hours (default is 25 or 1 day)
 #' @return List of length 2. 1) aggregates the model training - prediction results, 2) aggregates the predicted results to make a final prediction. Also saves all steps in /Results folder within the folder given to function
 #' @keywords part, parturition, parturition prediction
 #' @export
-PartWrap<-function(dat,projstring,dataset,saveby='Study',time.zone,ncpus,folder,
-                   mean_date,bday_dat,idname='UAID',sampsize=80,prepBoots=75,finBoots,imp=FALSE){
+Part_Wrap<-function(dat,projstring,dataset,saveby='Study',time.zone,ncpus,folder,
+                   mean_date,bday_dat,idname='UAID',sampsize=80,prepBoots=75,finBoots,imp=FALSE,
+                   part_type='date',targ_time=25,targ_dist=300){
 
   ab<-Sys.time()
 
@@ -53,7 +57,8 @@ PartWrap<-function(dat,projstring,dataset,saveby='Study',time.zone,ncpus,folder,
   # cl<-snow::makeSOCKcluster(rep('localhost',ncpus))
   # snow::clusterEvalQ(cl,c(library(randomForest),library(dplyr),require(rfUtilities)))
   prep<-Part::Part_caretModPrep(folder=folder,datatype=datatype,mean_date=mean_date,
-                                bday_dat=bday_dat,idname=idname,sampsize=sampsize,ncpus=ncpus)
+                                bday_dat=bday_dat,idname=idname,sampsize=sampsize,ncpus=ncpus,
+                               part_type = part_type, targ_time = targ_time, targ_dist = targ_dist)
   # snow::stopCluster(cl)
   saveRDS(prep, file=paste0(folder,'/Results/ModPrepOutput_',gsub('-','',Sys.Date()),'.RDS'))
   cat("\n")
