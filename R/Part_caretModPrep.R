@@ -15,7 +15,8 @@
 #' @keywords part, parturition
 #' @export
 #' @importFrom dplyr "%>%"
-Part_caretModPrep <- function(folder,datatype,mean_date,bday_dat,idname='UAID',sampsize=80,ncpus){
+Part_caretModPrep <- function(folder,datatype,mean_date,bday_dat,idname=idname,sampsize=sampsize,
+                              ncpus,part_type=part_type,targ_type=targ_type,targ_dist=targ_dist){
   if(datatype=='Animal'){
     # load data
     #folder <- paste0("Analysis/02_Code/01_calc_move_stats/movement_stats_df/",animal,"/")
@@ -42,17 +43,39 @@ Part_caretModPrep <- function(folder,datatype,mean_date,bday_dat,idname='UAID',s
 
   dat<-dat[which(dat$UAID %in% foo$UAID),]
   # was getting bizarre index errors
-  birth_dat <- foo %>%
-    dplyr::select(UAID, Date.of.Birth) %>%
-    dplyr::distinct() %>%
-    dplyr::mutate(doy_birth = as.numeric(format(Date.of.Birth, "%j"))) %>%
-    #mutate(UAID = paste0("X", UAID)) %>%
-    dplyr::right_join(dat,by='UAID') %>%
-    dplyr::mutate(doy = as.numeric(format(time, "%j")), birth = ifelse(doy==doy_birth, 1, 0),
-           month = as.numeric(format(time, "%m")))%>%
-    dplyr::filter(doy > mean_date-30, doy < mean_date+30) %>%
-    dplyr::select(-month)
+  
+  if(part_type == 'date'){
+    birth_dat <- foo %>%
+      dplyr::select(UAID, Date.of.Birth) %>%
+      dplyr::distinct() %>%
+      dplyr::mutate(doy_birth = as.numeric(format(Date.of.Birth, "%j"))) %>%
+      #mutate(UAID = paste0("X", UAID)) %>%
+      dplyr::right_join(dat,by='UAID') %>%
+      dplyr::mutate(doy = as.numeric(format(time, "%j")), birth = ifelse(doy==doy_birth, 1, 0),
+             month = as.numeric(format(time, "%m")))%>%
+      dplyr::filter(doy > mean_date-30, doy < mean_date+30) %>%
+      dplyr::select(-month)
+  }
+  
+  if(part_type == 'dist'){
+    birth_dat <- foo %>% 
+      dplyr::select(UAID, Date.of.Birth) %>% 
+      dplyr::distinct() %>% 
+      dplyr::mutate(doy_birth = as.numeric(format(Date.of.Birth,"%j"))) %>% 
+      dplyr::right_join(dat, by = "UAID") %>% 
+      dplyr::mutate(doy = as.numeric(format(time, "%j")), month = as.numeric(format(time, "%m"))) %>% 
+      dplyr::filter(doy > mean_date - 30, doy < mean_date + 30) %>% 
+      dplyr::select(-month)
 
+    birth_dat <- merge(birth_dat,foo,by=c('UAID','Date.of.Birth'),all.x=T)
+  
+    birth_dat$BirthDist = abs(sqrt( (birth_dat$Easting - birth_dat$x)^2 + (birth_dat$Northing - birth_dat$y)^2))
+  
+    birth_dat$birth = ifelse(birth_dat$BirthDist < targ_dist & abs(difftime(birth_dat$time,birth_dat$Date.of.Birth,units ='hours')) < targ_time,1,0)
+  
+    birth_dat = birth_dat[,c(1:(ncol(birth_dat)-4),ncol(birth_dat))]
+  
+  }
   birth_dat <- as.data.frame(birth_dat)
 
   # find arguments for function
