@@ -16,7 +16,7 @@
 #' @export
 #' @importFrom dplyr "%>%"
 Part_caretModPrep <- function(folder,datatype,mean_date,bday_dat,idname=idname,sampsize=sampsize,
-                              ncpus,part_type=part_type,targ_type=targ_type,targ_dist=targ_dist){
+                              ncpus,part_type=part_type,targ_time=targ_time,targ_dist=targ_dist){
   if(datatype=='Animal'){
     # load data
     #folder <- paste0("Analysis/02_Code/01_calc_move_stats/movement_stats_df/",animal,"/")
