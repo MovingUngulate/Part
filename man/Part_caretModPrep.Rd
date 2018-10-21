@@ -5,8 +5,9 @@
 \title{Wrapper function to create all variables necessary to create ungulate parturition
 prediction models.}
 \usage{
-Part_caretModPrep(folder, datatype, mean_date, bday_dat, idname = "UAID",
-  sampsize = 80, ncpus)
+Part_caretModPrep(folder, datatype, mean_date, bday_dat, idname = idname,
+  sampsize = sampsize, ncpus, part_type = part_type,
+  targ_time = targ_time, targ_dist = targ_dist)
 }
 \arguments{
 \item{folder}{folder where ready data is stored '/home/user/Desktop/Partmod'}
