@@ -25,6 +25,8 @@ Imports:
     parallel, 
     adehabitatLT,
     data.table,
+    rgdal,
+    sp,
     dplyr,
     zoo,
     rmarkdown,
