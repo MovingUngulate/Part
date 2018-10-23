@@ -83,11 +83,13 @@ Part_modTrain<-function(nrun,data,vars,mt,sampsize,idname='UAID',
   for(f in 1:length(uni)){
     # loop through each individaul
     subd<-testdata[which(testdata[,idname] == uni[f]),]
-
+    subdagg<- aggregate(subd$RFProb1,by=list(subd$DOY),FUN=sum,na.rm=T)
+    subdagg<-subdagg[subdagg[,1]==max(subdagg[,1]),]
     # make dataframe of results for individual
     outty<-data.frame(UAID = uni[f],
                       Actual.DOB=unique(subd$PartDOY),
-                      DOB_RFProb = min(subd$DOY[which.max(subd$RFProb1)]),
+                      #DOB_RFProb = min(subd$DOY[which.max(subd$RFProb1)]),
+                      DOB_RFProb = subdagg[,2],
                       MaxRFVal = max(subd$RFProb1,na.rm=T),
                       MeanRFVal = mean(subd$RFProb1,na.rm=T),
                       MedianRFVal = median(subd$RFProb1,na.rm=T),
