@@ -33,7 +33,9 @@ Part_fixrate<-function(input="/home/puma/Desktop/RunningPart/Data/StarkeyElk_Rea
   for(i in 1:max_fix){
     
     load(input)
-    
+    if(exists('bday_dat')){
+      bd<-bday_dat
+    }
     bd$DOY<-as.numeric(strftime(bd$Date.of.Birth,'%j'))
     
     uni<-unique(dat$UAID)
