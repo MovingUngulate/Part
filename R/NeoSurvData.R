@@ -11,6 +11,7 @@
 #' @param Cause Vector of causes in your data.frame in which events should be censored (i.e. Collar_Failure)
 #' @return Returns a data.frame with original data.frame with a column of survival time (DiffTime) and indicator of whether event occurred (Indicator)
 #' @keywords neonate, survival
+#' @export
 #' @examples
 #' \donttest{NeoSurv<-NeoSurvDat(NeoDat = yourdata, units = "days", cuts = TRUE, cutoffs = 140, Cause = "collar_failure")}
 #' 
@@ -38,3 +39,4 @@ if(cuts == FALSE){
   return(NeoDat)
 }
 }
+
