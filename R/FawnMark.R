@@ -257,26 +257,29 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   #This function creates a table with updated stats for all animals
   tabby<-Part::tabFun(vhist=vhist,vi=vi,viout=viout,outtra=mdat2,spp='deer')
   
-  if(!('AID' %in% names(tabby))){
+  #if(!('AID' %in% names(tabby))){
     tabby<-tabby[,c(1,4,2,3,8,9,10,11,12,13:16)]
     
     colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
                        'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
                        'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent')
-  }
-  if('AID' %in% names(tabby)){
-    tabby<-tabby[,c(1,4,2,3,9,10,11,12,13,14:17,6)]
-    
-    colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
-                       'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
-                       'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent','AID') 
-  }
+  # }
+  # if('AID' %in% names(tabby)){
+  #   tabby<-tabby[,c(1,4,2,3,9,10,11,12,13,14:17,6)]
+  #   
+  #   colnames(tabby)<-c('Serial','Mom Freq','#Fetus','VIT Freq','VitStatusChange',
+  #                      'VitStatusChange_3Day','EventEasting','EventNorthing','CurrentVitStatus',
+  #                      'LatestTelemdate','LatestEasting','LatestNorthing','DistFromEvent','AID') 
+  # }
   
   tabby<-tabby[!duplicated(tabby$Serial),]
   saveRDS(tabby,file=datastore)
   
   
   Part::PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
+  hj<-readRDS('G:/University/Part/workingdir/PrettyData.RDS')
+  hj$MatchFreq<-gsub('.','',as.character(hj$`Mom Freq`),fixed=T)
+  hj$MatchFreq<-ifelse(nchar(hj$MatchFreq)<6,paste0(hj$MatchFreq,'0'),hj$MatchFreq)
   
   fn<-data.frame(datastore=datastore,prettydatastore=PrettyDataStore,
                  pathloc=paste0(tempdir,'path.RDS'),stringsAsFactors=F)
@@ -286,6 +289,21 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   path<-plotfolder
   # pdfpath<-'C:/Users/mhayes1/Desktop/FreshStart/PDFs/'
   llist<-list.files(path,full.names=T)
+  
+  
+  finlist<-vector()
+  for(i in 1:length(llist)){
+    for(k in 1:length(hj$MatchFreq)){
+      tes = grepl(hj$MatchFreq[k], llist[i])
+      tes = TRUE %in% tes
+      if(tes == TRUE){
+        finlist<-c(finlist,llist[i])
+      }
+    }
+  }
+  finlist<-finlist[!duplicated(finlist)]
+  llist<-finlist
+  
   for(i in 1:length(llist)){
     
     #sb<-gsub('C:/Users/mhayes1/Desktop/FreshStart/plots/','',llist[i])
