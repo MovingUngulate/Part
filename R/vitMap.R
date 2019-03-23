@@ -153,13 +153,13 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       predsub<-predsub[which(predsub$TelemDate>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
       #predsub<-predsub[predsub>-]
       
-      
+      if(nrow(predsub)>0){
       plot(predsub$TelemDate, predsub$Pred0, type = "l", ylab = "Probability", 
            xlab = "Date", main = "ML Predictions", cex = 1.25,ylim=c(0,1),lwd=1)
       lines(predsub$TelemDate,predsub$Pred2,col='red',lwd=1)
       lines(predsub$TelemDate,predsub$Pred1,col='blue',lwd=2)
       abline(v=vhsub$ActBD[1],col='green',lty=2)
-      
+      }
       tc <- quantile(sub$FPT150, na.rm = T)[4]
       fc3 <- as.data.frame(table(sub$FPT150[(nrow(sub) - 
                                                12):(nrow(sub))] > tc))
