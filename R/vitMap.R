@@ -45,7 +45,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
     }
     locdat <- out
     
-    tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01',sep='')
+    tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01',sep='')
     locdat <- locdat[which(locdat$TelemDate >= as.POSIXct(tim, 
                                                           format = "%Y-%m-%d")), ]
     uni <- unique(locdat$CollarSerialNumber)
@@ -63,7 +63,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                      ]
       subvidat <- subvidat[order(subvidat$Date, decreasing = T), 
                            ]
-      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01 00:00:00',sep='')
       subvidat<-subvidat[which(subvidat$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
       sub$FPT50 <- ifelse(is.na(sub$FPT50),0, sub$FPT50)
       sub$FPT100 <- ifelse(is.na(sub$FPT100), 
@@ -88,7 +88,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       }
       
       if(nrow(subvidat)>0){
-        tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+        tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01 00:00:00',sep='')
         subvidat<-subvidat[which(subvidat$Date>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
         plot(subvidat$Date, subvidat$n, type = "b", pch = 20, 
              ylab = "", yaxt = "n", main = "Vit History", 
@@ -97,7 +97,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                                                    "Comm", "Other"), las = 1, cex.axis = 1.15)
       abline(v=vhsub$ActBD[1],col='green',lty=2)
         }
-      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01',sep='')
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01',sep='')
       sub <- sub[which(sub$TelemDate >= as.POSIXct(tim, 
                                                    format = "%Y-%m-%d")), ]
       plot(sub$TelemDate, sub$MR, type = "l", ylab = "Movement Rate", 
@@ -149,7 +149,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
       
       predsub<-hg[hg$CollarSerialNumber==uni[l],]
       
-      tim<-paste(strftime(Sys.time(),format='%Y'),'-05-01 00:00:00',sep='')
+      tim<-paste(strftime(Sys.time(),format='%Y'),'-03-01 00:00:00',sep='')
       predsub<-predsub[which(predsub$TelemDate>=as.POSIXct(tim,format='%Y-%m-%d %H:%M:%S')),]
       #predsub<-predsub[predsub>-]
       
@@ -186,6 +186,7 @@ vitMap<-function(locdat,vidat,vhist,fold,spp,plotdataPath,hg=NULL){
                         Pred1Check=predsub$Pred1[nrow(predsub)],
                         Pred2Check=predsub$Pred2[nrow(predsub)],
                         stringsAsFactors = F)
+      if(nrow(cks)==0){next}
       cks$Serial <- sub$CollarSerialNumber[1]
       allcks <- rbind(allcks, cks)
     }
