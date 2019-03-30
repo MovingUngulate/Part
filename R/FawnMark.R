@@ -277,7 +277,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
   
   
   Part::PrettyData(dat=mdat2,idl=tabby,filen=PrettyDataStore)
-  hj<-readRDS('G:/University/Part/workingdir/PrettyData.RDS')
+  hj<-readRDS(PrettyDataStore)
   hj$MatchFreq<-gsub('.','',as.character(hj$`Mom Freq`),fixed=T)
   hj$MatchFreq<-ifelse(nchar(hj$MatchFreq)<6,paste0(hj$MatchFreq,'0'),hj$MatchFreq)
   
