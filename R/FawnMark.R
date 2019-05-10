@@ -224,7 +224,7 @@ FawnMark<-function(vecpath,ATSUsers,ATSPass,tempdir,
       ddd$Year<-Year
       jhg<-rbind(jhg,ddd)
     }
-    vi<-rbind(vi,jhg)
+    vi<-rbind(vi,jhg[,names(vi)])
     
   }
   viout<-Part::locFun(vidat=vi,locdat=mdat2)
