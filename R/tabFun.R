@@ -182,7 +182,12 @@ tabFun<-function(vhist,vi,viout,outtra,spp='deer'){
       }
       
     }
-    tl<-tl[,c(1,19:20)]
+    if(names(tl)[20]=='Northing'){
+      tl <- tl[, c(1, 19:20)]
+    }
+    if(names(tl)[23]=='Northing'){
+      tl<-tl[,c(1,22:23)]
+    }
     tl$CollarSerialNumber<-as.numeric(tl$CollarSerialNumber)
     
     ntab<-merge(ntab,tl,by.x='Serial.Number',by.y='CollarSerialNumber')
